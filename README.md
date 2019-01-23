@@ -40,4 +40,22 @@ Vanilla reinforcement such as techniques like Q-learning don't naturally extend 
 DDPG also has two key advantages which make it more user friendly
 
 1. Off policy: which means that the training and testing of the model are independent. With DDPG in particular the testing becomes deterministic which has huge advantages for debugging
-2. Model free: which means it doesn't need to build a model of the space it's trying to learn in. This is extremely conveninent since the algorithm doesn't need to store O(number of states) to perform
+2. Model free: which means it doesn't need to build a model of the space it's trying to learn in. This is extremely conveninent since the algorithm doesn't need to store O(f(number of states)) to perform
+
+### How does DDPG work
+DDPG is an actor critic algorithm which means it has two neural networks. 
+
+The actor $$\mu(s|theta) $$ provides an action in the form a real valued number given the current state of the environment $$s$$.
+
+
+The critic $$Q(s,a|\theta) gives an error as a real valued number to criticize the actions made by the actor network.
+
+
+The specific hyperparameters for the actor and critic network can be found in the original paper. It's very likely that other settings and neural net architectures would probably work but that's something you can optimize if your usecase requires better performance.
+
+
+## References
+* https://pemami4911.github.io/blog/2016/08/21/ddpg-rl.html
+* http://www.mujoco.org/
+* http://www.cs.sjsu.edu/faculty/pollett/masters/Semesters/Spring18/ujjawal/DDPG-Algorithm.pdf
+* 

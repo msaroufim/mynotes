@@ -1,3 +1,13 @@
+## Introduction
+
+The goal of today's blog post will be to program the motion of a 2D robotic arm in Python. We won't be using any external libraries so we can focus on learning the inner workings.
+
+Hopefully by the end of this tutorial you'll understand the basics of robotics and how to program robots to achieve their goals using Reinforcement Learning. This technique has the advantage of being very light mathematically in comparison to alternatives which use quite advanced algebra.
+
+If by the end of this tutorial you'd like to learn more then you can expect  further blog post which generalizes the below blog post to a 3D arm.
+
+If using Reinforcement Learning to program goals is of strong interest to you then I'd also like to invite you to sign up at [Yuri.ai](http://www.yuri.ai)
+
 ## Robotics environments
 
 There's a wide variety of open source and closed source environments to perform robotic simulations in. A popular one which you'll often see in papers is Mujoco which is a full 3D physics simulator. Mujoco's primary disandvantage is that's it not free and it's personal non-commercial license goes for $500.
@@ -32,9 +42,103 @@ Our goal is to minimize the distance betweeen the finger and the goal so we'll o
 
 If your only interest is getting things to work then a high level understanding should be enough sufficient but we'll also go through the details and explain how everything works so you can debug it if it comes to that.
 
-## Basics of Reinforcement Learning
+## Let's look at some code
 
-## Deep Deterministic Policy Gradients
+### Main function
+Let's work backwards assuming that we've already implemented or are using someone elses implementations of some Reinforcement Learning algorithm and/or some robotic environment, how do we put everything together. Or in other words what do we use typical RL and robotics APIs.
+
+#### Setup 
+Most RL algorithms will require you specify the sizes of the action and state spaces of the environment you're working with. Since DDPG outputs actions as continuous variables we'll also specify a maximum bound for it. We also need to specify how many episodes we're running the algorithm for and how long each episode lasts.
+
+```python
+from env import ArmEnvironment
+from rl  import DDPG
+
+#Training specific hyperparameters
+#Try modifying these values and see what works
+MAX_EPISODES = 500
+MAX_EP_STEPS = 200
+ON_TRAIN = True
+
+# setup
+env = ArmEnvironment()
+s_dim = env.state_dim
+a_dim = env.action_dim
+a_bound = env.action_bound
+rl = DDPG(a_dim, s_dim, a_bound)
+```
+
+#### Training code
+Any Reinforcement Learning algorithm will be used in a main function that looks very similar to what you see below. 
+1. You start an environment and record its state in a temporary variable
+2. You then use this variable to find the optimal action according to the current best policy
+3. You feed that action back to the environment to record the new state you're in, by how much you're rewarded and whether you've reached a terminal state
+4. The transitions from step 3 are stored in a priority queue to make training more stable
+5. Repeat the above until an adequate number of episodes
+6. Plot your reward error over time, if things are working correctly this should steadily be going down
+
+```python
+
+def train():
+    # start training
+    for i in range(MAX_EPISODES):
+        s = env.reset()
+        episode_r = 0.
+        for j in range(MAX_EP_STEPS):
+            env.render()
+
+            a = rl.choose_action(s)
+
+            s_, r, goal = env.step(a)
+
+            rl.store_transition(s, a, r, s_)
+
+            #increment reward for the episode by reward taken for the specific action
+            episode_r += r
+            if rl.memory_full:
+                rl.learn()
+
+            s = s_
+            if goal or j == MAX_EP_STEPS-1:
+                print('Episode: %i | Reward: %.1f' % (i, episode_r))
+                break
+    rl.save()
+```
+
+#### Evaluation code
+Evaluation code is even simpler
+1. We load the model we trained in the previous section
+2. We pick actions according to this new model until we're done
+
+One special note worth mentioning is that we set ```vsync = True``` to make sure that the simulation doesn't go faster than our monitor's refresh rate
+```python
+def eval():
+    rl.load()
+    env.render()
+    env.viewer.set_vsync(True)
+    while True:
+        s = env.reset()
+        for _ in range(MAX_EP_STEPS):
+            env.render()
+            a = rl.choose_action(s)
+            s, r, done = env.step(a)
+            if done:
+                break
+
+
+if ON_TRAIN:
+    train()
+else:
+    eval()
+```
+### How to program a 2D robot arm
+We'll mention again that in practice you'll use a more robust simulator such as the ones in [Open AI gym](https://gym.openai.com/). However, I've found that blindly using someone elses simulator tends to make the behavior seem more complex than it actually is so we'll go over the basics of how to program a 2D robot arm now.
+
+
+### How to program DDPG
+We won't go in detail over the code of DDPG since that would require its own blog post and an extensive explanation of the theory behind Reinforcement Learning but we'll say a few important notes so you can understand why the algorithm is interesting.
+
+### Deep Deterministic Policy Gradients
 Vanilla reinforcement such as techniques like Q-learning don't naturally extend to problems with continuous spaces, as in for the most part you'll see Q-learning work really well in discrete environments like board games. You could discretize your continuous space to use Q-learning but if your discretizations are small enough you'll end up with a very large number of states which will substantially slow down the convergence of Q-learning if it converges at all.
 
 DDPG also has two key advantages which make it more user friendly
@@ -50,6 +154,7 @@ The actor $$\mu(s|theta) $$ provides an action in the form a real valued number 
 
 The critic $$Q(s,a|\theta) gives an error as a real valued number to criticize the actions made by the actor network.
 
+We'll look at code which will make the above more concrete but it's worth skimming the original [DDPG paper by Silver et al](http://proceedings.mlr.press/v32/silver14.pdf) to get a better idea of how everything works.
 
 The specific hyperparameters for the actor and critic network can be found in the original paper. It's very likely that other settings and neural net architectures would probably work but that's something you can optimize if your usecase requires better performance.
 

@@ -6,7 +6,7 @@ Hopefully by the end of this tutorial you'll understand the basics of robotics a
 
 If by the end of this tutorial you'd like to learn more then you can expect  further blog post which generalizes the below blog post to a 3D arm.
 
-If using Reinforcement Learning to program goals is of strong interest to you then I'd also like to invite you to preorder my book which will discuss how to use Reinforcement Learning to program AI for video games.
+If using Reinforcement Learning to program goals is of strong interest to you then I'd also like to invite you to sign up at [Yuri.ai](http://www.yuri.ai)
 
 ## Main components
 
@@ -155,8 +155,7 @@ Plug a RL method to the framework, this method can be discrete or continuous.
 This script is based on a continuous action RL. If you want to change to discrete RL like DQN,
 please change the env.py and rl.py correspondingly.
 """
-from part4.env import ArmEnv
-from part4.rl import DDPG
+
 
 #SETUP
 

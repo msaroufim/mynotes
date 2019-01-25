@@ -9,5 +9,6 @@ We will use
 
 ## How to put things together
 
+$$ x=1 $$
 
 ## How to engineer the car do drive smoothly

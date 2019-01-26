@@ -10,7 +10,7 @@ https://github.com/chris-chris/mario-rl-tutorial
 
 Robotics: MorvanZhou tutorials on github
 
-Need to find something for MOBA. In particular need to figure out how to use LSTM to model games of imperfect information
+Need to find something for MOBA. In particular need to figure out how to use LSTM to model games of imperfect information. [This paper](https://arxiv.org/pdf/1507.06527.pdf) for example uses an RNN as the last layer of the Q learning networks but based on experimental results there wasn't that much evidence that this approach does all that much more than something like experience replay
 
 For board games use Alpha Zero from Deep Learning and the game of go book
 

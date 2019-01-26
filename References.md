@@ -10,6 +10,6 @@ https://github.com/chris-chris/mario-rl-tutorial
 
 Robotics: MorvanZhou tutorials on github
 
-Need to find something for MOBA
+Need to find something for MOBA. In particular need to figure out how to use LSTM to model games of imperfect information
 
 For board games use Alpha Zero from Deep Learning and the game of go book

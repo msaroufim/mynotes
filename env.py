@@ -16,7 +16,7 @@ class ArmEnvironment():
     #state is comprised of 9 elements
     state_dim = 9
 
-    #we have two joints
+    #we have two joints which we'll put forces on
     action_dim = 2
 
     def __init__(self):
@@ -148,8 +148,6 @@ class Viewer(pyglet.window.Window):
         self.switch_to()
         self.dispatch_events()
         self.on_draw()
-        #self.dispatch_event('on_draw')
-
         #needed if not double buffered, screen won't render without it
         self.flip()
 

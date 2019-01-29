@@ -44,6 +44,8 @@ If your only interest is getting things to work then a high level understanding 
 
 ## Let's look at some code
 
+A lot of the code is borrowed from [Morvan Zhou from his tutorial in Chinese](https://morvanzhou.github.io/tutorials/machine-learning/ML-practice/RL-build-arm-from-scratch1/. His code is very clear but unfortunately does not have any comments which makes it somewhat inaccecible unless you have some background in robotics and reinforcement learning. We'll amend this problem right now.
+
 ### Main function
 Let's work backwards assuming that we've already implemented or are using someone elses implementations of some Reinforcement Learning algorithm and/or some robotic environment, how do we put everything together. Or in other words what do we use typical RL and robotics APIs.
 
@@ -134,9 +136,77 @@ else:
 ### How to program a 2D robot arm
 We'll mention again that in practice you'll use a more robust simulator such as the ones in [Open AI gym](https://gym.openai.com/). However, I've found that blindly using someone elses simulator tends to make the behavior seem more complex than it actually is so we'll go over the basics of how to program a 2D robot arm now.
 
+At a high level what we ne need for the 2D robot environment or for that matter any environment on which we hope to run a reinforcement learning algorithm is the below
+
+```python
+class ArmEnv():
+    def __init__(self):
+        pass
+
+    def step(self, action):
+        pass
+
+    def reset(self):
+        pass
+
+    def render(self):
+        pass
+```
+
+Let's look at how we'd implement each of the above functions starting with the render function.
+
+Since we're not looking to create our own graphics library (although this is something you could do if you were interested), we'll be using Pyglet as a way to render our arms as rectangles and our goal as a square so let's create our ```Viewer``` class now which should take in an ```arm_info``` data structure and ```goal``` and render the state on our monitor.
+
+```python
+class Viewer(pyglet.window.Window):
+    thickness = 5
+    def __init__(self, arm_info, goal):
+        # vsync=False to not use the monitor FPS, we can speed up training this way
+        super(Viewer, self).__init__(width=400, height=400, vsync=False)
+
+        #make screen black so you can start rendering other stuff on it
+        pyglet.gl.glClearColor(0, 0, 0, 0)
+
+        #take our arm state
+        self.arm_info = arm_info
+        self.center_coord = np.array([200, 200])
+
+        self.batch = pyglet.graphics.Batch()
+        
+        #Render goal
+        self.goal = self.batch.add(
+            # Goal is a square: specify its 4 corners with v2f
+            4, pyglet.gl.GL_QUADS, None,    
+            ('v2f', [goal['x'] - goal['thickness'] / 2, goal['y'] - goal['thickness'] / 2,               
+                     goal['x'] - goal['thickness'] / 2, goal['y'] + goal['thickness'] / 2,
+                     goal['x'] + goal['thickness'] / 2, goal['y'] + goal['thickness'] / 2,
+                     goal['x'] + goal['thickness'] / 2, goal['y'] - goal['thickness'] / 2]),
+            
+            #specify its color with c3b
+            ('c3B', (255, 0, 0) * 4)) 
+        
+        # Can generalize the below to multiple arms
+        # Let's do 2 arms for now
+        # Same idea as for goal, we have 4 corners specified by their x, y location on our window with a color for each arm
+        self.arm1 = self.batch.add(
+            4, pyglet.gl.GL_QUADS, None,
+            ('v2f', [250, 250,                
+                     250, 300,
+                     260, 300,
+                     260, 250]),
+            ('c3B', (255, 255, 255) * 4,))   
+        self.arm2 = self.batch.add(
+            4, pyglet.gl.GL_QUADS, None,
+            ('v2f', [100, 150,             
+                     100, 160,
+                     200, 160,
+                     200, 150]),
+                    ('c3B', (255, 255, 255) * 4,))
+```
+
 
 ### How to program DDPG
-We won't go in detail over the code of DDPG since that would require its own blog post and an extensive explanation of the theory behind Reinforcement Learning but we'll say a few important notes so you can understand why the algorithm is interesting.
+We won't go in detail over the code of DDPG since that would require its own blog post and an extensive explanation of the theory behind Reinforcement Learning but we'll say a few important notes so you can understand why the algorithm is interesting. For this tutorial we've chosen DDPG as our reinforcement learning algorithm of choice but any reinforcement algorithm that can output continuous values would also work. So an alternative way of going about this tutorial would be to plug a bunch of the reinforcement learning algorithms from [Open AI baselines](https://github.com/openai/baselines)
 
 ### Deep Deterministic Policy Gradients
 Vanilla reinforcement such as techniques like Q-learning don't naturally extend to problems with continuous spaces, as in for the most part you'll see Q-learning work really well in discrete environments like board games. You could discretize your continuous space to use Q-learning but if your discretizations are small enough you'll end up with a very large number of states which will substantially slow down the convergence of Q-learning if it converges at all.

@@ -78,4 +78,7 @@
 * Can use MCTS to make the bot resign once it realizes that it has less than 10% chance of winning
 
 ## Chapter 5: getting started with neural network
+* Design a neural network library from scratch where you can stack layers (Keras style) - using handdigit recognition as a use case
+
+## Chapter 6: Designing a neural network for Go data
 

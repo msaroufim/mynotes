@@ -27,3 +27,55 @@
     - You want an interpretable model you can debug
 
 ## Chapter 2: Go as a machine learning problem
+* It's dangerous to train robot in the real world directly since it can cause accidents so doing things in a simulated environment is a generally good idea
+* Goes over a simple explanation of the rules of Go
+    - Standard board is 19x19 but we can work with a smaller board first to make sure things work
+    - Players alternate placing stones
+    - You capture opponents stones by filling all their liberties
+    - A group with two unconnected liberties can't be captured (strategy mostly comes from this rule)
+    - When both players pass game ends, dead stones are considered captured stones unless of one the two players contests this
+    - You can't play a move that would return teh board to a previous state
+    - Score is one point for every point surrounded by your own stones + one point for every captured enemy stone 
+    * Go to online-go.com to play the game
+* Go bots typically have opening databases (Chess also has endgame databases but this is not possible in Go)
+* Core idea behind board game AI is tree search
+* Branching factor of Go is 250 vs Chess. This is something worth thinking about when building the AI for any board game
+* Start off with a supervised learning approach where you predict the human move
+* Can setup your Go AI on a public server vs other Go engines to benchmark it or setup a Go server for humans to play against
+
+## Chapter 3: Implementing your first Go bot
+* Chapter goes over the code found in [this repo](https://github.com/maxpumperla/deep_learning_and_the_game_of_go/blob/master/code/dlgo/goboard_slow.py)
+* Uses Python ```@property``` a lot for getters and setters
+* Prints board as text
+* Creates a random agent
+* To detect whether Ko position happened in the past, they use a hash table
+* Also provide in the github repo a faster implementation of Go that doesn't involve copying as many pythong variables
+* Also sets up a script so you can play against the bot
+
+
+## Chapter 4: Playing games with tree search
+* Tree search: pruning and Monte Carlo Tree Search
+* Games can be
+    - Deterministic vs nondeterministic: chess vs backgammon
+    - Hidden information vs perfect information: Poker vs Backgammon
+
+* Most of the code is game agnostic but a new game would need to implement game logic of ```Player, Move, GameState: apply_move, legal_moves, is_over and winner``` - github repo has an example for this from Tic Tac Toe
+* Other games that would work well are: Mancala, Gomoku, Nine Mens Morris, Hex, CHeckers, Chess
+* Minmax, writes a FULL MINMAXAGENT IMPLEMENTATION
+    - Write the function to find the winning move
+    - elmininate all losing moves
+    - Iterate over multiple moves in advance
+* Minmax is unbeatable for games like Tic Tac Toe but own't work well for trees with large height or depth. Tree size is ```width^depth```
+* Reduce tree size via position evaluation with heuristics
+    - Chess: difference between total value of pieces of white - total value of pieces for black
+    - etcc..
+* With position evaluation we can prune the depth of search 
+* Alpha beta pruning: if opponent has one really good response move you don't need to compute the rest of the tree
+* Idea of MTCS: given some position, simulate a bunch of different random moves - if one side wins way more often than the other, it means that one of the sides had a better initial position
+* MCTS needs to balance exploration vs exploitation using the UCT formula which is a weighted sum of the likelihood of winning at a certain node + how little visited the other nodes are
+* Faster game engine means you can evaluate more moves in advance
+* Can optimize how to choose MCTS rollouts based on some domain knowledge from the game
+* Can use MCTS to make the bot resign once it realizes that it has less than 10% chance of winning
+
+## Chapter 5: getting started with neural network
+

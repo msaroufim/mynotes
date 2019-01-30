@@ -81,4 +81,24 @@
 * Design a neural network library from scratch where you can stack layers (Keras style) - using handdigit recognition as a use case
 
 ## Chapter 6: Designing a neural network for Go data
+* Take Go board and featurize it as -1 for black pieces and +1 for white pieces and 0 otherwsise then flatten the board into a single column vector (later chapters will look at using a convnet to exploit spatial locality)
+* So we need to create an encoder class to  turn a board game state into numeric data and way to encode and ecode specific point
+* Generate data using MTCS and have a CLI interface to make it easy to specify board size nad number of games to generate - ```parser.add_argument()``` is extremely useful and I should use it more often
+* Gives an overview of Keras, how it has multiple backends. How to install it using ```pip``` although ```pyenv``` is not covered and probably should be. Also no platform specific instructions, book is assuming everyone has Mac OS X and goes over an example of Image processing using Keras
+* For Go, model needs to take in an array of size the game board and output an array of size the game board where each element will have the predicted move probability
+* First network has 3 layers with roughly 600K weights, accuracy of predicting best move is 2.3% which is twice as good as randomly guessing which is 1.2%. Improvements can come from several areas
+    - MCTS isn't generating all that great of moves so games arent that good
+    - Neural net architecture can capture spatial data like in donvnets
+    - Using sigmoid activation
+    - MSE isn't the best function for classification
+* Explains what a convolution operation is
+* Explains what a tensor is and where the name tensorflow comes from
+* Mentions the flatten operation that needs to be added between dense layers and conv2d layers in Keras
+* Introduces pooling
+* Uses softmax function as an activation function - Keras makes it really easy to plug in a custom activation function
+* Uses categorical cross entropy instead of MSE as a loss function
+* Uses Dropout and ReLu
+* With all the above improvements our accuracy goes up to 8%
 
+## Chapter 7: Learning from data a deep learning bot
+* Now use actual data from Go games instead of randomly simulating them

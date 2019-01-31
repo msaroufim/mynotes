@@ -1,22 +1,21 @@
 ## Introduction
 
-The goal of today's blog post will be to program the motion of a 2D robotic arm in Python. We won't be using any external libraries except ```Tensorflow``` for the reinforcement learning model so we can focus on learning the inner workings of a robotics environment.
+The goal of today's blog post will be to program the motion of a 2D robotic arm in Python. We won't be using any external libraries except ```Tensorflow``` and ```numpy``` for the reinforcement learning model so we can focus on learning the inner workings of a robotics environment.
 
-Hopefully by the end of this tutorial you'll understand the basics of robotics and how to program robots to achieve their goals using Reinforcement Learning. This technique has the advantage of being very light mathematically in comparison to alternatives which use quite advanced algebra. All the code is present on the [github repo](INSERT LINK TO GITHUB REPO)
+Hopefully by the end of this tutorial you'll understand the basics of robotics and how to program robots to achieve their goals using Reinforcement Learning. The advantage of this technique is that you can program very high level goals simply and learn complex behavior such as motion.
 
 If by the end of this tutorial you'd like to learn more then you can expect  further blog post which generalizes the below blog post to a 3D arm.
 
-If using Reinforcement Learning to program goals is of strong interest to you then I'd also like to invite you to sign up at [Yuri.ai](http://www.yuri.ai)
+If using Reinforcement Learning to program goals is of strong interest to you then I'd also like to invite you to sign up at [Yuri.ai](http://www.yuri.ai). I'm also writing a book on using Reinforcement Learning for video games where I'll be covering things like Alpha Go Zero, Alpha Star and Open AI 5. If you sign up for [Yuri.ai](http://www.yuri.ai) we'd love to add you to the early access list.
 
 ## Robotics environments
 
-There's a wide variety of open source and closed source environments to perform robotic simulations in. A popular one which you'll often see in papers is Mujoco which is a full 3D physics simulator. Mujoco's primary disandvantage is that's it not free and it's personal non-commercial license goes for $500.
+There's a wide variety of open source and closed source environments to perform robotic simulations in. A popular one which you'll often see in papers is [Mujoco(http://www.mujoco.org/)] which is a full 3D physics simulator. Mujoco's primary disandvantage is that's it not free and it's personal non-commercial license goes for $500.
  
-There are other options such as Gazebo or any game engine such as Unity or Unreal. Unity in particular has recently published [Unity ML agents](https://github.com/Unity-Technologies/ml-agents) which makes it really easy to add intelligence to your Game Objects in a very Unity like fashion.
+There are other options such as Gazebo or any game engine such as [Unity](https://unity3d.com/) or [Unreal](https://www.unrealengine.com/en-US/what-is-unreal-engine-4). Unity in particular has recently published [Unity ML agents](https://github.com/Unity-Technologies/ml-agents) which makes it really easy to add intelligence to your Game Objects in a very Unity like fashion.
 
 Another option which keeps us free of big dependencies is building our own simple physics simulator in a graphics engine such as [Pyglet](https://pyglet.readthedocs.io/en/pyglet-1.3-maintenance/) or a game engine such as [Pygame](https://www.pygame.org/news). While this approach is not recommended if your goal is to eventually publish a Reinforcement Learning  paper or publish a multiplatform game with real users, it has the advantage of being transparent which makes it an excellent first step for us to learn how robotics engines are built with very little magic.
 
-[Mujoco](http://www.mujoco.org/)
 
 ![Mujoco environments](mujoco.png)
 
@@ -24,9 +23,9 @@ Another option which keeps us free of big dependencies is building our own simpl
 
 ### Inverse Kinematics
 
-The typical approach to learning to solve goals in robotics environments is [Inverse Kinematics](https://en.wikipedia.org/wiki/Inverse_kinematics). At a high level, a robot is comprised of limbs and joints and the goal of Inverse Kinematics or IK is to figure out the joint movements that would help the robot reach a given configuration. These configurations can be quite general, from imitating a certain pose or motion to something like picking an apple. IK is a rich field that has solved many practical problems but we won't go into its details today.
+The typical approach to learning to solve goals in robotics environments is [Inverse Kinematics](https://en.wikipedia.org/wiki/Inverse_kinematics). At a high level, a robot is comprised of limbs and joints and the goal of Inverse Kinematics or IK is to figure out the joint movements that would help the robot reach a given configuration. These configurations can be quite general, from imitating a certain pose or motion to something like picking an apple.
 
-### Reinforcement  Learning approach to IK
+### Reinforcement Learning approach to IK
 
 Instead we assume that most of our audience is more familiar with Machine Learning techniques and will instead propose a general method to solve goal oriented problems in robotics in a fairly general fashion.
 
@@ -39,8 +38,6 @@ def reward(finger, goal):
     return -distance(finger, goal)
 ```
 Our goal is to minimize the distance betweeen the finger and the goal so we'll output rewards close to 0 when they are close to each other and negative rewards if they are far apart. And that's it! That's the interface we can work with if we're willing to use Reinforcement Learning as an API.
-
-If your only interest is getting things to work then a high level understanding should be enough sufficient but we'll also go through the details and explain how everything works so you can debug it if it comes to that.
 
 ## Let's look at some code
 
@@ -77,10 +74,9 @@ Any Reinforcement Learning algorithm will be used in a main function that looks 
 3. You feed that action back to the environment to record the new state you're in, by how much you're rewarded and whether you've reached a terminal state
 4. The transitions from step 3 are stored in a priority queue to make training more stable
 5. Repeat the above until an adequate number of episodes
-6. Plot your reward error over time, if things are working correctly this should steadily be going down
+6. Inspect your reward over time, if things are working correctly this should steadily be going up
 
 ```python
-
 def train():
     # start training
     for i in range(MAX_EPISODES):
@@ -112,7 +108,8 @@ Evaluation code is even simpler
 1. We load the model we trained in the previous section
 2. We pick actions according to this new model until we're done
 
-One special note worth mentioning is that we set ```vsync = True``` to make sure that the simulation doesn't go faster than our monitor's refresh rate
+One special note worth mentioning is that we set ```vsync = True``` to make sure that the simulation doesn't go faster than our monitor's refresh rate which is a constraint we can relax to get faster results during training.
+
 ```python
 def eval():
     rl.load()
@@ -134,9 +131,9 @@ else:
     eval()
 ```
 ### How to program a 2D robot arm
-We'll mention again that in practice you'll use a more robust simulator such as the ones in [Open AI gym](https://gym.openai.com/). However, I've found that blindly using someone elses simulator tends to make the behavior seem more complex than it actually is so we'll go over the basics of how to program a 2D robot arm now.
+We'll mention again that in practice you'll use a more robust simulator such as the ones in [Open AI gym](https://gym.openai.com/). However, we've found that blindly using someone elses simulator tends to make the behavior seem more complex than it actually is so we'll go over the basics of how to program a 2D robot arm now.
 
-At a high level what we ne need for the 2D robot environment or for that matter any environment on which we hope to run a reinforcement learning algorithm is the below
+At a high level what we ne need for the 2D robot environment or for that matter any environment on which we hope to run a reinforcement learning algorithm is the below. If you look at the [core interface in Open AI gym](https://github.com/openai/gym/blob/master/gym/core.py) you'll notice that it looks very similar to the below.
 
 ```python
 class ArmEnvironment():
@@ -153,9 +150,11 @@ class ArmEnvironment():
         pass
 ```
 
-Let's look at how we'd implement each of the above functions starting with the render function.
+We'll skip over the implementation of ```reset``` since it's very similar to ```__init__``` conceptually.
 
-Since we're not looking to create our own graphics library (although this is something you could do if you were interested), we'll be using Pyglet as a way to render our arms as rectangles and our goal as a square so let's create our ```Viewer``` class now which should take in an ```arm_info``` data structure and ```goal``` and render the state on our monitor.
+Since we're not looking to create our own graphics library (although this is something you could do if you were interested), we'll be using ```Pyglet``` as a way to render our arms as rectangles and our goal as a square so let's create our ```Viewer``` class now which should take in an ```arm_info``` data structure and a```goal``` and render the state on our monitor.
+
+The most important point below is that ```Pyglet``` displays a batch of rectangles together where each rectangle is composed of 4 vertices and a color.
 
 ```python
 class Viewer(pyglet.window.Window):
@@ -206,7 +205,14 @@ class Viewer(pyglet.window.Window):
 
 [Arm screenshot](arm.png)
 
-Great now we can display an arm! Let's think a bit more about how to represent the state of the arm environment and then how to move the arm around and how we'll make this environment work with our reinforcement learning code.
+Great now we can display an arm! Let's think a bit more about how to represent the state of the arm environment and then how to move the arm around and how we'll make this environment work with our reinforcement learning code. The Arm environment needs to hold the following key information
+1. A viewer class 
+2. State dimension which consists of
+    - Whether the goal was reached
+    - The position of the two joints on the screen
+    - The distance of the joints to the goal
+3. Action dimension which consists of the two joints we're operating on with a scalar value that would nudge each one up or down to make them more likely to reach the goal
+4. An arm info data structure which keeps track of the length of each arm and the radius the arm makes with a horizontal line going through the center of the screen.
 
 ```python
 class ArmEnvironment():
@@ -301,10 +307,10 @@ Many of the remaining functions are formalities so we'd suggest you check out th
         s = np.concatenate((a1xy_/200, finger/200, dist1 + dist2, [1. if self.on_goal else 0.]))
         return s, r, done
 ```
-We still have one more loose end when it comes to the arm environment, we need to update what's displayed on screen and we can do this by adding an additional function to our ```Viewer``` class. The ```update_arm``` function works in teh following way
+We still have one more loose end when it comes to the arm environment, we need to update what's displayed on screen and we can do this by adding an additional function to our ```Viewer``` class. The ```update_arm``` function works in the following way
 1. Calculate joint positions
 2. Calculate new joint positions after movement
-3. Given the new joint positions use trigonometry to move each vertex of each rectangle
+3. Given the new joint positions use trigonometry to move each vertex of each rectangle the appropriate amount
 4. Redraw the rectangles
 
 ```python
@@ -351,19 +357,8 @@ Vanilla reinforcement such as techniques like Q-learning don't naturally extend 
 DDPG also has two key advantages which make it more user friendly
 
 1. Off policy: which means that the training and testing of the model are independent. With DDPG in particular the testing becomes deterministic which has huge advantages for debugging
-2. Model free: which means it doesn't need to build a model of the space it's trying to learn in. This is extremely conveninent since the algorithm doesn't need to store O(f(number of states)) to perform
+2. Model free: which means it doesn't need to build a model of the space it's trying to learn in. This is extremely conveninent since the algorithm doesn't need to store O(f(number of states)) to work and in our case the number of values the states can take is infinite because the environment is continuous.
 
-### How does DDPG work
-DDPG is an actor critic algorithm which means it has two neural networks. 
-
-The actor $$\mu(s|theta) $$ provides an action in the form a real valued number given the current state of the environment $$s$$.
-
-
-The critic $$Q(s,a|\theta) gives an error as a real valued number to criticize the actions made by the actor network.
-
-You can just use DDPG as an API but it's worth skimming the original [DDPG paper by Silver et al](http://proceedings.mlr.press/v32/silver14.pdf) to get a better idea of how everything works.
-
-The specific hyperparameters for the actor and critic network can be found in the original paper. It's very likely that other settings and neural net architectures would probably work but that's something you can optimize if your usecase requires better performance.
 
 ### Putting everything together
 
@@ -372,12 +367,14 @@ Given the 3 components we built above we're now finally ready to see the fruits 
 2. An Arm environment that keeps track of its state and can render itself using ```Pyglet```
 3. A training and evaluation pipeline
 
-As far as I know it's not possible to run ```Pyglet``` inside of a Jupyter notebook, so you can train the arm using Floydhub for best results and then view your results on your local machine. I've tested my arm on Mac OS X.
+As far as I know it's not possible to run ```Pyglet``` inside of a Jupyter notebook, so you can train the arm using Floydhub for best results and then view your results on your local machine. We've tested the arm on Mac OS X.
 
 ## ADD GIF VIDEO HERE
 
 ### Outro
-I hope you've enjoyed reading this article as much as I've enjoyed writing it.
+I hope you've enjoyed reading this article as much as I've enjoyed writing it and if you did please let us know if you'd like to read more similar posts.
+* [Add me on Github](https://github.com/msaroufim)
+* [Sign up for Yuri](http://www.yuri.ai) 
 
 
 []()
@@ -387,4 +384,5 @@ I hope you've enjoyed reading this article as much as I've enjoyed writing it.
 * https://pemami4911.github.io/blog/2016/08/21/ddpg-rl.html
 * http://www.mujoco.org/
 * http://www.cs.sjsu.edu/faculty/pollett/masters/Semesters/Spring18/ujjawal/DDPG-Algorithm.pdf
-* 
+
+* https://github.com/MorvanZhou/train-robot-arm-from-scratch

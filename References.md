@@ -15,3 +15,7 @@ Need to find something for MOBA. In particular need to figure out how to use LST
 For board games use Alpha Zero from Deep Learning and the game of go book
 
 Need to understand curriculum learning better and whether Alpha Star or any game actually need it https://www.doc.ic.ac.uk/~ejohns/Documents/diego_mendoza_barrenechea_thesis.pdf
+
+RL for blackjack https://towardsdatascience.com/playing-blackjack-using-model-free-reinforcement-learning-in-google-colab-aa2041a2c13d
+
+RL poker http://willtipton.com/coding/poker/2017/06/06/shove-fold-with-reinforcement-learning.html

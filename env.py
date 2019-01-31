@@ -8,7 +8,6 @@ class ArmEnvironment():
 
     # refresh rate
     dt = .1    
-    action_bound = [-1, 1]
 
     #we specify a goal 
     goal = {'x': 100., 'y': 100., 'thickness': 10}
@@ -18,14 +17,20 @@ class ArmEnvironment():
 
     #we have two joints which we'll put forces on
     action_dim = 2
+    action_bound = [-1, 1]
+
 
     def __init__(self):
         self.arm_info = np.zeros(
             2, dtype=[('l', np.float32), ('r', np.float32)])
         
-        #arm lengths
-        self.arm_info['l'] = 100        
+        # arm lengths
+        self.arm_info['l'] = 100  
+
+        # arm radiuses      
         self.arm_info['r'] = 0   
+
+        # boolean to check if goal achieved
         self.on_goal = 0
 
     def step(self, action):
@@ -34,60 +39,48 @@ class ArmEnvironment():
         self.arm_info['r'] += action * self.dt
         self.arm_info['r'] %= np.pi * 2    # normalize, if this was of type angle this wouldnt be needed
 
-        (a1l, a2l) = self.arm_info['l']  # radius, arm length
-        (a1r, a2r) = self.arm_info['r']  # radian, angle
-        a1xy = np.array([200., 200.])    # a1 start (x0, y0)
+        # Arm lengths
+        (a1l, a2l) = self.arm_info['l'] 
+        
+        # Arm radiuses
+        (a1r, a2r) = self.arm_info['r']
 
-        #Need to put some sort of screenshot from the modern robotics book to show how the below works
+        # Origin of arm 1
+        a1xy = np.array([200., 200.]) 
 
-        a1xy_ = np.array([np.cos(a1r), np.sin(a1r)]) * a1l + a1xy  # a1 end and a2 start (x1, y1)
+        # Mid point between arm 1 and arm 2
+        a1xy_ = np.array([np.cos(a1r), np.sin(a1r)]) * a1l + a1xy
+
+        # Finger, tip of arm 2
         finger = np.array([np.cos(a1r + a2r), np.sin(a1r + a2r)]) * a2l + a1xy_  # a2 end (x2, y2)
-        # normalize features by window size
-        #maybe dist1 is not needed
 
-        #reward can be featurized in several ways
-        #main thing is that finger needs to be on goal
-        #but can also reward if joints are close to endpoint
-        #usually in more advanced research this is taken care of by a conv net
-        #we will summarize joint state as distance to goal but there are other ways of doing this
-        #that could still
+
         dist1 = [(self.goal['x'] - a1xy_[0]) / 400, (self.goal['y'] - a1xy_[1]) / 400]
         dist2 = [(self.goal['x'] - finger[0]) / 400, (self.goal['y'] - finger[1]) / 400]
 
-        #the reward function could be engineered further but we'll just say we want the finger to be close
-        #to the goal
-        r = -np.sqrt(dist2[0]**2+dist2[1]**2)
 
-        # done and reward
-        #reward engineering, can be really creative here
-        #notice there's no such thing as failure
-        #but we could add some conditions to say done if the arm knocks into a wall
-        #or flails a lot etc..
+        r = -np.sqrt(dist2[0]**2+dist2[1]**2)
 
         if self.goal['x'] - self.goal['thickness']/2 < finger[0] < self.goal['x'] + self.goal['thickness']/2:
             if self.goal['y'] - self.goal['thickness']/2 < finger[1] < self.goal['y'] + self.goal['thickness']/2:
                 r += 1.
 
-                #only reward the agent if deliberately comes on the goal for over 50 iterations
+                # only reward the agent if it deliberately comes to the goal for over 50 iterations
                 self.on_goal += 1
                 if self.on_goal > 50:
                     done = True
         else:
             self.on_goal = 0
 
-        # state is of size 9 because we have two joints each need 2 points to describe
-        # state of size 7 still works but should converge more slowly
-        # we have one distance with two values to describe
-        # and boolean for whether we are on goal or not
         s = np.concatenate((a1xy_/200, finger/200, dist1 + dist2, [1. if self.on_goal else 0.]))
         return s, r, done
 
     def reset(self):
         self.arm_info['r'] = 2 * np.pi * np.random.rand(2)
         self.on_goal = 0
-        (a1l, a2l) = self.arm_info['l']  # radius, arm length
-        (a1r, a2r) = self.arm_info['r']  # radian, angle
-        a1xy = np.array([200., 200.])  # a1 start (x0, y0)
+        (a1l, a2l) = self.arm_info['l'] 
+        (a1r, a2r) = self.arm_info['r'] 
+        a1xy = np.array([200., 200.]) 
         a1xy_ = np.array([np.cos(a1r), np.sin(a1r)]) * a1l + a1xy  # a1 end and a2 start (x1, y1)
         finger = np.array([np.cos(a1r + a2r), np.sin(a1r + a2r)]) * a2l + a1xy_  # a2 end (x2, y2)
         # normalize features

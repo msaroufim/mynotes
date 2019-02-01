@@ -326,21 +326,18 @@ We still have one more loose end when it comes to the arm environment, we need t
         a2xy_ = np.array([np.cos(a1r+a2r), np.sin(a1r+a2r)]) * a2l + a1xy_
 
         #figure out by how much joints need to be rotated
-        #what happens if you remove pi over 2 here
         a1tr  = np.pi / 2 - self.arm_info['r'][0] 
         a2tr = np.pi / 2 - self.arm_info['r'].sum()
 
+        #Rotate 4 vertices of the first arm rectangle
         xy01 = a1xy + np.array([-np.cos(a1tr), np.sin(a1tr)]) * self.thickness
         xy02 = a1xy + np.array([np.cos(a1tr), -np.sin(a1tr)]) * self.thickness
-        
         xy11 = a1xy_ + np.array([np.cos(a1tr), -np.sin(a1tr)]) * self.thickness
         xy12 = a1xy_ + np.array([-np.cos(a1tr), np.sin(a1tr)]) * self.thickness
 
-        #similar to xy11 and xy22
+        #Rotate the 4 vertices of the second arm rectangle
         xy11_ = a1xy_ + np.array([np.cos(a2tr), -np.sin(a2tr)]) * self.thickness
         xy12_ = a1xy_ + np.array([-np.cos(a2tr), np.sin(a2tr)]) * self.thickness
-        
-        #similar to xy01 and xy02
         xy21 = a2xy_ + np.array([-np.cos(a2tr), np.sin(a2tr)]) * self.thickness
         xy22 = a2xy_ + np.array([np.cos(a2tr), -np.sin(a2tr)]) * self.thickness
 
@@ -350,10 +347,9 @@ We still have one more loose end when it comes to the arm environment, we need t
 
 
 
-### How to program DDPG
+### Deep Deterministic Policy Gradients
 We won't go in detail over the code of DDPG since that would require its own blog post and an extensive explanation of the theory behind Reinforcement Learning but we'll say a few important notes so you can understand why the algorithm is interesting. For this tutorial we've chosen DDPG as our reinforcement learning algorithm of choice but any reinforcement algorithm that can output continuous values would also work. So an alternative way of going about this tutorial would be to plug a bunch of the reinforcement learning algorithms from [Open AI baselines](https://github.com/openai/baselines) and see what works best.
 
-### Deep Deterministic Policy Gradients
 Vanilla reinforcement such as techniques like Q-learning don't naturally extend to problems with continuous spaces, as in for the most part you'll see Q-learning work really well in discrete environments with a fixed number of actions e.g: Super Mario bros. You could discretize your continuous space to use Q-learning but if your discretizations are small enough you'll end up with a very large number of states which will substantially slow down the convergence of Q-learning if it converges at all.
 
 DDPG also has two key advantages which make it more user friendly

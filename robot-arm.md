@@ -2,7 +2,7 @@
 
 The goal of today's blog post will be to program the motion of a 2D robotic arm in Python. We won't be using any external libraries except ```Tensorflow``` and ```numpy``` for the reinforcement learning model so we can focus on learning the inner workings of a robotics environment.
 
-Hopefully by the end of this tutorial you'll understand the basics of robotics and how to program robots to achieve their goals using Reinforcement Learning. The advantage of this technique is that you can program very high level goals simply and learn complex behavior such as motion.
+Hopefully by the end of this tutorial you'll understand the basics of robotics and how to program robots to achieve their goals using Reinforcement Learning. The advantage of this technique is that you can program very high level goals simply and learn complex behavior such as motion. You can download the code we'll be using [here](https://github.com/MorvanZhou/train-robot-arm-from-scratch/tree/master/part5) and run ```python main.py``` and follow the comments from this post.
 
 If by the end of this tutorial you'd like to learn more then you can expect  further blog post which generalizes the below blog post to a 3D arm.
 
@@ -16,8 +16,6 @@ There are other options such as Gazebo or any game engine such as [Unity](https:
 
 Another option which keeps us free of big dependencies is building our own simple physics simulator in a graphics engine such as [Pyglet](https://pyglet.readthedocs.io/en/pyglet-1.3-maintenance/) or a game engine such as [Pygame](https://www.pygame.org/news). While this approach is not recommended if your goal is to eventually publish a Reinforcement Learning  paper or publish a multiplatform game with real users, it has the advantage of being transparent which makes it an excellent first step for us to learn how robotics engines are built with very little magic.
 
-
-![Mujoco environments](mujoco.png)
 
 ## Learning in robotics environments
 
@@ -307,6 +305,10 @@ Many of the remaining functions are formalities so we'd suggest you check out th
         s = np.concatenate((a1xy_/200, finger/200, dist1 + dist2, [1. if self.on_goal else 0.]))
         return s, r, done
 ```
+
+
+
+
 We still have one more loose end when it comes to the arm environment, we need to update what's displayed on screen and we can do this by adding an additional function to our ```Viewer``` class. The ```update_arm``` function works in the following way
 1. Calculate joint positions
 2. Calculate new joint positions after movement
@@ -377,12 +379,8 @@ I hope you've enjoyed reading this article as much as I've enjoyed writing it an
 * [Sign up for Yuri](http://www.yuri.ai) 
 
 
-[]()
-
-
 ## References
 * https://pemami4911.github.io/blog/2016/08/21/ddpg-rl.html
-* http://www.mujoco.org/
 * http://www.cs.sjsu.edu/faculty/pollett/masters/Semesters/Spring18/ujjawal/DDPG-Algorithm.pdf
 
 * https://github.com/MorvanZhou/train-robot-arm-from-scratch

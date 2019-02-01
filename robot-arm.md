@@ -10,7 +10,7 @@ If using Reinforcement Learning to program goals is of strong interest to you th
 
 ## Robotics environments
 
-There's a wide variety of open source and closed source environments to perform robotic simulations in. A popular one which you'll often see in papers is [Mujoco(http://www.mujoco.org/)] which is a full 3D physics simulator. Mujoco's primary disandvantage is that's it not free and it's personal non-commercial license goes for $500.
+There's a wide variety of open source and closed source environments to perform robotic simulations in. A popular one which you'll often see in papers is [Mujoco(http://www.mujoco.org/)] which is a full 3D physics simulator. Mujoco's primary disadvantage is that's it not free and it's personal non-commercial license goes for $500.
  
 There are other options such as Gazebo or any game engine such as [Unity](https://unity3d.com/) or [Unreal](https://www.unrealengine.com/en-US/what-is-unreal-engine-4). Unity in particular has recently published [Unity ML agents](https://github.com/Unity-Technologies/ml-agents) which makes it really easy to add intelligence to your Game Objects in a very Unity like fashion.
 
@@ -35,11 +35,11 @@ As an example in Python, we'd like the finger of a robot to reach a certain goal
 def reward(finger, goal):
     return -distance(finger, goal)
 ```
-Our goal is to minimize the distance betweeen the finger and the goal so we'll output rewards close to 0 when they are close to each other and negative rewards if they are far apart. And that's it! That's the interface we can work with if we're willing to use Reinforcement Learning as an API.
+Our goal is to minimize the distance between the finger and the goal so we'll output rewards close to 0 when they are close to each other and negative rewards if they are far apart. And that's it! That's the interface we can work with if we're willing to use Reinforcement Learning as an API.
 
 ## Let's look at some code
 
-A lot of the code is borrowed from [Morvan Zhou from his tutorial in Chinese](https://morvanzhou.github.io/tutorials/machine-learning/ML-practice/RL-build-arm-from-scratch1/) His code is very clear but unfortunately does not have any comments which makes it somewhat inaccecible unless you have some background in robotics and reinforcement learning. We'll amend this problem right now.
+A lot of the code is borrowed from [Morvan Zhou from his tutorial in Chinese](https://morvanzhou.github.io/tutorials/machine-learning/ML-practice/RL-build-arm-from-scratch1/) His code is very clear but unfortunately does not have any comments which makes it somewhat inaccessible unless you have some background in robotics and reinforcement learning. We'll amend this problem right now.
 
 ### Main function
 Let's work backwards assuming that we've already implemented or are using someone elses implementations of some Reinforcement Learning algorithm and/or some robotic environment, how do we put everything together. Or in other words what do we use typical RL and robotics APIs.
@@ -247,8 +247,6 @@ class ArmEnvironment():
 
         #boolean variable that tracks whether finger is on the goal   
         self.on_goal = 0
-
-
 ```
 
 Many of the remaining functions are formalities so we'd suggest you check out the repo directy to understand how they work so let's get to the meaty part which is the ```step``` function.
@@ -355,7 +353,7 @@ Vanilla reinforcement such as techniques like Q-learning don't naturally extend 
 DDPG also has two key advantages which make it more user friendly
 
 1. Off policy: which means that the training and testing of the model are independent. With DDPG in particular the testing becomes deterministic which has huge advantages for debugging
-2. Model free: which means it doesn't need to build a model of the space it's trying to learn in. This is extremely conveninent since the algorithm doesn't need to store O(f(number of states)) to work and in our case the number of values the states can take is infinite because the environment is continuous.
+2. Model free: which means it doesn't need to build a model of the space it's trying to learn in. This is extremely convenient since the algorithm doesn't need to store O(f(number of states)) to work and in our case the number of values the states can take is infinite because the environment is continuous.
 
 
 ### Putting everything together

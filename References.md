@@ -19,3 +19,5 @@ Need to understand curriculum learning better and whether Alpha Star or any game
 RL for blackjack https://towardsdatascience.com/playing-blackjack-using-model-free-reinforcement-learning-in-google-colab-aa2041a2c13d
 
 RL poker http://willtipton.com/coding/poker/2017/06/06/shove-fold-with-reinforcement-learning.html
+
+Good article that explains what target networks are exactly https://medium.freecodecamp.org/improvements-in-deep-q-learning-dueling-double-dqn-prioritized-experience-replay-and-fixed-58b130cc5682

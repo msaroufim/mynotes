@@ -21,3 +21,5 @@ RL for blackjack https://towardsdatascience.com/playing-blackjack-using-model-fr
 RL poker http://willtipton.com/coding/poker/2017/06/06/shove-fold-with-reinforcement-learning.html
 
 Good article that explains what target networks are exactly https://medium.freecodecamp.org/improvements-in-deep-q-learning-dueling-double-dqn-prioritized-experience-replay-and-fixed-58b130cc5682
+
+Don't forget arthur juliani class https://medium.com/@awjuliani/simple-reinforcement-learning-with-tensorflow-part-4-deep-q-networks-and-beyond-8438a3e2b8df

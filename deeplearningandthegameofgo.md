@@ -102,3 +102,31 @@
 
 ## Chapter 7: Learning from data a deep learning bot
 * Now use actual data from Go games instead of randomly simulating them
+* Import Go games from KGS Go server
+* Go files have a format called SGF which
+    - Game metadata and specific variant of Go
+    - Sequence of moves played
+    - End territory owned by each side    - End territory owned by each side
+* Spends some time going over data processors and how to load games in parallel
+* Introduces padding in convnets
+* Instead of a trivial encoding of the game of Go we can look at having several planes with for e.g
+    - Planes for stones with 1 liberty for black and 1 for white
+    - Positions that can't be played becaus of Ko
+    - Planes for stones with 2, 3, 4 liberties etc.
+    - Plane for indicating player turn
+* Decay and momentum in SGD
+* Adagrad, per parameter learning rate so can change the learning rate of stones at the edge vs stones near the center
+* Has a note around changing all the hyperparameters
+
+## Chapter 8: Deploying bots in the wild
+* Discusses how to serialize a Go model and how to serve it using a Flask app
+* GTP is a program available in most OSs that lets you then serve Go models online easily
+* Register an account with OGS server to test how good your model is
+* This whole pipeline would be very interesting to emulate for regular board games
+
+## Chapter 9: Learning by practive: reinforcement learning
+* Does a simple sampler and shows how it works for a game like tic tac toe
+* Policy agent consists of a model and encoder
+* Policy agent selects move by doing a softmax over all teh board positions and picks the best one + some randomness (e.g: epsilon greedy)
+* Need to keep track of experiences in its own buffer
+* Play a batch of games and save them

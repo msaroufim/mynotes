@@ -21,4 +21,4 @@ Project structure of https://github.com/Zeta36/chess-alpha-zero
     - lib has a bunch of miscellaneous stuff
     - manager.py is a CLI to do training
     - Interesting code is in the worker folder
-* worker folder
+* worker folder - TODO: SUMMARIZE SELF PLAY, OPTIMIZE, SL, EVALUATE

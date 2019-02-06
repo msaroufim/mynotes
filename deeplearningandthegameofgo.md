@@ -130,3 +130,5 @@
 * Policy agent selects move by doing a softmax over all teh board positions and picks the best one + some randomness (e.g: epsilon greedy)
 * Need to keep track of experiences in its own buffer
 * Play a batch of games and save them
+
+## TODO: SUMMARIZE REMAINING CHAPTERS FROM MY NOTES

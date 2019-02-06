@@ -23,3 +23,8 @@ RL poker http://willtipton.com/coding/poker/2017/06/06/shove-fold-with-reinforce
 Good article that explains what target networks are exactly https://medium.freecodecamp.org/improvements-in-deep-q-learning-dueling-double-dqn-prioritized-experience-replay-and-fixed-58b130cc5682
 
 Don't forget arthur juliani class https://medium.com/@awjuliani/simple-reinforcement-learning-with-tensorflow-part-4-deep-q-networks-and-beyond-8438a3e2b8df
+
+Interesting code bases
+* https://github.com/peter1591/hearthstone-ai
+* https://arxiv.org/pdf/1708.00730.pdf
+* http://www0.cs.ucl.ac.uk/staff/d.silver/web/Teaching_files/games.pdf

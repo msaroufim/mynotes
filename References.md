@@ -19,3 +19,5 @@ Need to understand curriculum learning better and whether Alpha Star or any game
 RL for blackjack https://towardsdatascience.com/playing-blackjack-using-model-free-reinforcement-learning-in-google-colab-aa2041a2c13d
 
 RL poker http://willtipton.com/coding/poker/2017/06/06/shove-fold-with-reinforcement-learning.html
+
+Remember Policy gradient is a classification and DQN is a regression. Obvious if you look at the code https://github.com/simoninithomas/Deep_reinforcement_learning_Course/blob/master/Policy%20Gradients/Doom/Doom%20REINFORCE%20Monte%20Carlo%20Policy%20gradients.ipynb not much changes besides the loss at the final layer

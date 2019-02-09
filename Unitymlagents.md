@@ -8,7 +8,9 @@
 
 GPU training needs a small config change: https://github.com/Unity-Technologies/ml-agents/issues/1534
 
-To train an agent from scratch, setup the Unity and use the CLI https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Training-ML-Agents.md - CLI needs a path to a config file to specify how the learning will happen exactly. Base algorithm is PPO with some default params but they can be changed easily
+To train an agent from scratch, setup the Unity and use the CLI https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Training-ML-Agents.md - CLI needs a path to a config file to specify how the learning will happen exactly and needs a .app file which you can get from building the scene you're working with.
+
+ Base algorithm is PPO with some default params but they can be changed easily
 
 
 Let's look at an example with the Soccer game. Code has 4 files

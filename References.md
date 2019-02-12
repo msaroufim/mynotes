@@ -31,6 +31,8 @@ Evolutionary strategies are a form of random search where weights are sampled ra
 RL is guess and check on actions while ES is guess and check on parameters
 ES is parallelizable, deals well with credit assignment problems since we dont' have to reason over long timescales and more robust to tuning hyperparameters
 
+Imitation learning is about turning an RL task into a supervised learning task. Example: given a chess position predict the move that top players would most likely play next. It works as a great bootstrapping method before self play starts.
+
 * https://medium.com/@benjamin.phillips22/evolution-strategies-as-a-scalable-alternative-to-reinforcement-learning-paper-summary-691161b52ddd
 * http://blog.otoro.net/2017/10/29/visual-evolution-strategies/
 * https://blog.openai.com/evolution-strategies/

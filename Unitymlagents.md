@@ -26,3 +26,13 @@ Let's look at an example with the Soccer game. Code has 4 files
 * SoccerBallController: keeps track of the last color that the ball touched and triggers an event when the ball reaches one of the two goals
 
 Let's try modifying the game, retraining and see how everything works
+
+
+
+## Pytorch integration
+It's possible to train a Pytorch model which has a much simpler API than Tensorflow to able to train a model and also display the loss in the environment. https://github.com/xkiwilabs/DQN-using-PyTorch-and-ML-Agents. The way this works is
+* In python use the unity agents library to get a gym like API for your Unity environment
+* Create a trainer, tester, replay memory and the model file and everything just works
+* You can even display the loss and training using Tensorboard
+
+Unfortunately AFAIK it's not possible to embed the model as a trained brain in Unity ML agents: https://github.com/Unity-Technologies/ml-agents/issues/1300

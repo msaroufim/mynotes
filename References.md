@@ -26,6 +26,18 @@ Good article that explains what target networks are exactly https://medium.freec
 
 Don't forget arthur juliani class https://medium.com/@awjuliani/simple-reinforcement-learning-with-tensorflow-part-4-deep-q-networks-and-beyond-8438a3e2b8df
 
+Evolutionary strategies are a form of random search where weights are sampled randomly at first and resampled from where the best random weights were with some noise. ES are easier to implement than backprop and can be parallelized in a more trivial manner.
+
+RL is guess and check on actions while ES is guess and check on parameters
+ES is parallelizable, deals well with credit assignment problems since we dont' have to reason over long timescales and more robust to tuning hyperparameters
+
+* https://medium.com/@benjamin.phillips22/evolution-strategies-as-a-scalable-alternative-to-reinforcement-learning-paper-summary-691161b52ddd
+* http://blog.otoro.net/2017/10/29/visual-evolution-strategies/
+* https://blog.openai.com/evolution-strategies/
+
+
+
+
 Interesting code bases
 * https://github.com/peter1591/hearthstone-ai
 * https://arxiv.org/pdf/1708.00730.pdf

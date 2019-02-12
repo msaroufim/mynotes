@@ -36,3 +36,12 @@ It's possible to train a Pytorch model which has a much simpler API than Tensorf
 * You can even display the loss and training using Tensorboard
 
 Unfortunately AFAIK it's not possible to embed the model as a trained brain in Unity ML agents: https://github.com/Unity-Technologies/ml-agents/issues/1300
+
+
+## How to train for the example apps given in the repo
+* Go to the academy and switch on control
+* For each of the relevant agent prefabs drag in the learner brain
+* go to anaconda prompt and activate the ml agents environemnet
+* run mlagents-learn --path to config
+* run tensorboard --lod_dir=summaries --host=127.0.0.1 to see the results
+* wowza so ez

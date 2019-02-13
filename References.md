@@ -52,6 +52,10 @@ It may make sense to have a chapter on scaling RL techniques where I cover
 * A2C and A3C
 * Multi CPU and Multi GPU training
 
+Keras implementations of all the RL algorithms: https://github.com/flyyufelix/VizDoom-Keras-RL
+
+Can run Open AI baselines on Unity environment using this https://github.com/Unity-Technologies/ml-agents/tree/master/gym-unity
+
 Interesting code bases
 * https://github.com/peter1591/hearthstone-ai
 * https://arxiv.org/pdf/1708.00730.pdf

@@ -37,8 +37,16 @@ Imitation learning is about turning an RL task into a supervised learning task. 
 * http://blog.otoro.net/2017/10/29/visual-evolution-strategies/
 * https://blog.openai.com/evolution-strategies/
 
+Rainbow networks combine all the famous DQN architecutres into one and is used as a benchmark in the Unity obstacle tower challenge
+* https://twitter.com/awjuliani/status/1095028459389083649
+* https://arxiv.org/pdf/1710.02298.pdf
 
+Differentiable ray tracing engine https://people.csail.mit.edu/tzumao/diffrt/diffrt.pdf
+Differentiable robotics engine https://arxiv.org/pdf/1611.01652.pdf - main idea is that they implemented a physics engine where the parameters can be differentiated with respect to the loss. Uses similar ideas to spring engines which are used in fluid dynamics and write the equations in Pytorch and then have them backpropped automatically.
 
+Neural ODE: https://jontysinai.github.io/jekyll/update/2019/01/18/understanding-neural-odes.html
+
+EVolutionary optimization book: https://www.researchgate.net/file.PostFileLoader.html?id=576447195b4952c3d05d7f7b&assetKey=AS:374040414965760@1466189593059 …
 
 Interesting code bases
 * https://github.com/peter1591/hearthstone-ai

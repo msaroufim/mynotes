@@ -60,3 +60,8 @@ Interesting code bases
 * https://github.com/peter1591/hearthstone-ai
 * https://arxiv.org/pdf/1708.00730.pdf
 * http://www0.cs.ucl.ac.uk/staff/d.silver/web/Teaching_files/games.pdf
+
+Good RL survey in different environments: https://arxiv.org/pdf/1708.07902.pdf 
+* document has two beautiful visualizations of all the RL algorithms
+* list of open problems is also interesting
+* Talks about what kinds of AI is used for each kind of game and gives canonical examples from each of those game genres

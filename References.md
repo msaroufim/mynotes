@@ -46,7 +46,15 @@ Differentiable robotics engine https://arxiv.org/pdf/1611.01652.pdf - main idea 
 
 Neural ODE: https://jontysinai.github.io/jekyll/update/2019/01/18/understanding-neural-odes.html
 
-EVolutionary optimization book: https://www.researchgate.net/file.PostFileLoader.html?id=576447195b4952c3d05d7f7b&assetKey=AS:374040414965760@1466189593059 …
+EVolutionary optimization book: https://www.researchgate.net/file.PostFileLoader.html?id=576447195b4952c3d05d7f7b&assetKey=AS:374040414965760@1466189593059
+
+It may make sense to have a chapter on scaling RL techniques where I cover
+* A2C and A3C
+* Multi CPU and Multi GPU training
+
+Keras implementations of all the RL algorithms: https://github.com/flyyufelix/VizDoom-Keras-RL
+
+Can run Open AI baselines on Unity environment using this https://github.com/Unity-Technologies/ml-agents/tree/master/gym-unity
 
 Interesting code bases
 * https://github.com/peter1591/hearthstone-ai

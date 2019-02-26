@@ -65,3 +65,12 @@ Good RL survey in different environments: https://arxiv.org/pdf/1708.07902.pdf
 * document has two beautiful visualizations of all the RL algorithms
 * list of open problems is also interesting
 * Talks about what kinds of AI is used for each kind of game and gives canonical examples from each of those game genres
+
+
+Good summary of RL techniques
+* https://lilianweng.github.io/lil-log/2018/02/19/a-long-peek-into-reinforcement-learning.html#common-approaches
+
+
+Hanabi learning environment: RL techniques suck for this and especially suck for more than 3 players https://www.researchgate.net/publication/330845137_The_Hanabi_Challenge_A_New_Frontier_for_AI_Research
+
+I don't fully understand this paper but Bayesian ideas can be used in Hanabi: chrome-extension://bjfhmglciegochdpefhhlphglcehbmek/content/web/viewer.html?file=https%3A%2F%2Farxiv.org%2Fpdf%2F1811.01458.pdf - main idea is that when you see another player play an action you simulate what will happen from their perspective and see if that means you should be playing something

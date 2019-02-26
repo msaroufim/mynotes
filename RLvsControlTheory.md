@@ -1,6 +1,8 @@
 ICML 2018: Tutorial Session Optimization perspectives on learning to control
 https://www.youtube.com/watch?v=hYw_qhLUE0o&t=756s
 
+The speakers blog is also fantastic
+
 * EE people: RL is a subset of control theory - mostly deal with continuous domains
 * CS people: Control theory is a subset of RL - mostly deal with discrete domains
 

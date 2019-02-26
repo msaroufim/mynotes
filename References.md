@@ -74,3 +74,8 @@ Good summary of RL techniques
 Hanabi learning environment: RL techniques suck for this and especially suck for more than 3 players https://www.researchgate.net/publication/330845137_The_Hanabi_Challenge_A_New_Frontier_for_AI_Research
 
 I don't fully understand this paper but Bayesian ideas can be used in Hanabi: chrome-extension://bjfhmglciegochdpefhhlphglcehbmek/content/web/viewer.html?file=https%3A%2F%2Farxiv.org%2Fpdf%2F1811.01458.pdf - main idea is that when you see another player play an action you simulate what will happen from their perspective and see if that means you should be playing something
+
+
+Auto ML, RNN samples blocks from common NN architecuteres to minimize some function. Kind of like RL, sequential decision making
+* https://arxiv.org/pdf/1707.07012.pdf
+* https://github.com/jhfjhfj1/autokeras

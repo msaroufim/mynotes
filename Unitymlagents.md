@@ -45,3 +45,6 @@ Unfortunately AFAIK it's not possible to embed the model as a trained brain in U
 * run mlagents-learn --path to config
 * run tensorboard --lod_dir=summaries --host=127.0.0.1 to see the results
 * wowza so ez
+
+
+Unity ML agents doesn't have a way for agents to play against former versions of themselves

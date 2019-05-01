@@ -26,6 +26,27 @@ Main components
 11. Monte Carlo Tree SEarch implementation
     * Node data structure which keeps track of neighbors, if it's leaf, player turn and board state
     * Edge doesn't make much sense (NWQP?)
-    * isLeaf() append breadcrumbs
+    * Most code is in move to leave
+        * Q and U values determine 
     * Add Node is 1 line of code
     * Backfill go back up the tree and update values
+
+
+# Alpha Go Julia
+https://github.com/tejank10/AlphaGo.jl
+
+Main components
+1. Readme allows training by adjusting number of layers and num_games to train
+2. Allows play takes in an environment, the model net, num_readouts of MCTS and player turn
+3. Replay batch manager
+4. UX rendering take in as a config  of a bunch of css files for play vs player only
+5. Has board featurizations with the pre Alpha Go Zero techniques where number of liberties among others 
+6. Has bindings for a Go engine called GTG
+7. Has bindings for kgs coordinates
+8. Interface for Web IO
+9. A resnet stack implementation
+10. MCTS
+    * Board repreesnted as a n x N^2 tensor of value estimates. n is number of turns, N is size of the board
+    * Longest code
+11. MCTS player that loads a MC tree and can pick moves and manages updates to the Monte Carlo Tree Search
+11. Main loads all the net params and if they don't exist train MCTS player

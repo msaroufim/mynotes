@@ -22,12 +22,31 @@
 * Models are parametrized by the number of layers they have
 * homology doesn't do well for high dimensional data so they embed high dimensional datasets using Locally linear embeddings
 * Need to read up more on persistent homology
+* Homology helps us figure the kinds of spaces that a neural net can cover and we can then compare that with the space of the dataset to figure out if the model can actually learn the data
 
 ## State representation learning
 * https://arxiv.org/pdf/1802.04181.pdf
+* Applications: find lower dimensional representations of the world and learn on them more efficiently
+* Several metrics exist to measure the quality of a representaiton all summarized in a table. ALl methods mostly fall into 2 buckets: task performance and measures of the geometrical coherence of the embeddings
+* Work in manifold learning and Pyotr Indyk work is gonna be relevant again - Distortion is measure local and global geometry coherence of representation changes w.r.t to ground truth (used for embeddings).
+* Talks about the various encoders that can be used to learn a state repreesntation
+    * Denoising autoencoders: Add noise to input
+    * Variational encoders: Approximate P(s_t|a_t) with approximate posterior model q_theta(st_t|o_t) q_theta is trained by regularizing to normal distsribution and minimizing the error between o_t and o_t hat
+    * Siamese networks: Differentiate between input data using 2 identical networks with the same wieghts. Can be used to implement priors and compute similarity score between s_t and s_t+1 (temporality principle, slowness principle)
+* Can learn a forward model as an objective for the autoencoder sˆt+1 = f(s_t, a_tt; θ)  , inverse model a_t = g(s_t,st_t+1 | ), do pca, adversarial training
+* Can also use reward functions from RL as additional signal but not necessary. There are also other loss functions that can be added
+    * Slowness: Small changes in state locally
+    * Variability: Representation should spend more space describing moving objects
+    * Proportionality: state changes by roughly same magnitude for any action
+    * Repeatability: making same change to same state should result in teh same state
+
 
 ## OSS projects
 * https://github.com/dlfivefifty/RepresentationTheory.jl
 * https://github.com/gbarsih/Representations-in-Robotics
 * TODO: more stuff on geometric deep learning
 
+## Other papers
+* http://www.robotics.tu-berlin.de/fileadmin/fg170/Publikationen_pdf/Jonschkowski-15-AURO.pdf
+* https://pdfs.semanticscholar.org/24f0/35f6493d8a1c6d3386ed9b3b62fd16072803.pdf
+* https://arxiv.org/pdf/1709.06560.pdf

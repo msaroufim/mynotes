@@ -8,7 +8,7 @@ They call you a good boy, and you don't know why but your entire body delights a
 
 > You wanna be a good boy
 
-You take a nap and wake up a couple of hours later, you feel pretty hungry, so you start staring at the dust and cat hair on the floor. You grab a tiny handfull and stuff it in your mouth, it's not too bad, the textures are pretty unique relative to what you've had before, the flavor suggests that it's an acquired taste. No sooner as you start putting your finger on the taste, do you see
+You take a nap and wake up a couple of hours later, you feel pretty hungry, so you start staring at the dust and cat hair on the floor. You grab a tiny handfull and stuff it in your mouth, it's not too bad, the textures are pretty unique relative to what you've had before, the flavor suggests that it's an acquired taste. No sooner as you start putting your finger on the taste, do you see giant hands yanking the tasty snack you were enjoying and then the never ending scolding starts. It doesn't feel all that good to be yelled at, you don't like being called a bad boy.
 
 > You don't wanna be a bad boy
 
@@ -52,6 +52,107 @@ end
 
 Your main constraint in learning this policy is to either maximize some reward function or minimize some punishment function.
 
+Suppose you're going to make a total of $T$ decisions then the total reward $R$ you should be trying to maximize is a sum of all rewards at each timestep t $r_t$
+
+$$R = \sum_{t=1}^{t=T} r_t$$
+
 Return of reward formula
 
-Discounted reward formula
+Finally, rewards are more valuable if you get them sooner rather than later. E.g: if you get a dollar today you can invest it and have two dollars at the end of the year. So we will codify this insight using a discounted reward formula. 
+
+
+$$R = \sum_{t=1}^{t=T} \gamma^t r_t$$ 
+
+Where the discount rate $\gamma \in [0,1]$. 
+
+if we set $\gamma = 1$ then we get $R = \sum_{t=1}^{t=T} 1^t r_t = \sum_{t=1}^{t=T}r_t$ which is equivalent to not having a discounting factor, i.e not valuing present reward more than future reward.
+
+If we set $\gamma = 0$ then we get 
+
+
+## API of RL algorithms
+
+Let's take a look at a popular ```Julia``` reinforcement learning package called [Reinforce.jl](https://github.com/JuliaML/Reinforce.jl) to really understand how everything fits together.
+
+First off we need an environment to work with which we can define as
+
+```
+reset!(env) -> env
+actions(env, s) -> A
+step!(env, s, a) -> (r, s′)
+finished(env, s′) -> Bool
+```
+
+The ```!``` in the code is a convention we use to say that the function changes its inputs or has side effects while functions that don't have ```!``` are called pure functions with no side effects.
+
+That's great and all but without knowing what the different states even are, how are we supposed to learn a policy on them?
+
+Over multiple iterations we can codify our observations as Episodes where an episode is defined as a tuple.
+
+```julia
+ep = (s,a,r,s',done)
+```
+where
+* $s$ is the current state
+* $a$ is the chosen action
+* $r$ is the instantaneous reward a this iteration
+* $s'$ is the new state you end up in
+* ```done``` is a boolean that lets you know if the goal was achieved
+
+With this mind we can then explore a bunch of such tuples by taking for example random actions in the environment and recording all these episodes in a key-value pair.
+
+Theoretically speaking once we have the full list of all possible episodes we can learn a policy by picking the highest value action for each possible episode. This approach has two key weaknesses and we'll address them one by one.
+1. We can't tell when the table is complete
+2. The table is huge
+
+SHOW A DIAGRAM OF THE TABLE
+
+### When is the table complete?
+
+The key to answering this question is almost philosophical in nature and is what the reinforcement learning community refers to as the tradeoff between exploration and exploitation.
+
+You can't fundamentally know when the table is complete, I'm sure if you have the patience you can reduce this to some version of the halting problem.
+
+The analogy here is often best understood with respect to the multi armed bandit problem which is just fancy terminology for a bunch of casino slot machines. 
+
+> Suppose you had $n$ slot machines, how do you which one to pick?
+
+Very informally, the answer is that you would first try a bunch of different ones a couple of times (you would explore). You would keep track of which one was the best one and then use that slot machine a couple of times (you would exploit). If it never dries up, good for you, you're now rich and don't need to read Machine Learning books to be succesful. 
+
+We can represent the above intuition using $\epsilon$-greedy strategy which would look something like 
+
+```julia
+function select_arm(algo)
+  if rand() > epsilon
+    return ind_max(algo.values)
+  else
+    return randi(length(algo.values))
+  end
+end
+```
+
+This exploration strategy will have to do for now but bear in mind that there's so many different ideas you can experiment with here. One cool one is annealing where you slowly reduce $\epsilon$ over time. When you're learning something new you wanna be really flexible when you're closer to a master you wanna be more rigid
+
+
+### The table is too damn big
+
+The value tables we deal with in reinforcement learning can be too massive to fit into memory so it's worth thinking about how we can compress it. All of the ideas here fall under a broader field called Representation Learning. For example, when learning a video game we can either use raw pixels or we can directly encode the $x, y, z$ coordinates of each object in the scene after running some object detector.
+
+Finding good representations manually is worthwile and I'll talk about it more in a later chapter but there's one really famous trick to compress the table using a deep neural network and surprise surprise we call it deep reinforcement learning.
+
+
+
+## Still need to talk about
+* TD learning: Change value of state-action pair after simulating up to n steps
+* Monte Carlo sampling: will talk about this in the gambling chapter
+* Tabular methods vs deep methods
+* Exploration strategies
+* Policy gradient vs policy iteration
+* How state and actions can be represented by different kinds of sets to get very different behaviors
+* Model learning methods (world learning)
+
+## Bibliography
+* [Summary of all the methods on Medium](https://medium.com/@jonathan_hui/rl-reinforcement-learning-algorithms-quick-overview-6bf69736694d)
+* https://medium.com/@SmartLabAI/reinforcement-learning-algorithms-an-intuitive-overview-904e2dff5bbc
+* https://www.altexsoft.com/blog/datascience/reinforcement-learning-explained-overview-comparisons-and-applications-in-business/ - applications and challenges of RL
+* https://medium.com/emergent-future/simple-reinforcement-learning-with-tensorflow-part-7-action-selection-strategies-for-exploration-d3a97b7cceaf Arthur Juliani's awesome RL tutorial

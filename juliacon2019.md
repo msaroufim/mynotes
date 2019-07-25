@@ -66,3 +66,4 @@ https://www.youtube.com/watch?v=B7mc1wXPZR8
 ## Gaussian Process Probabilistic Programming with Stheno.jl
 * https://www.youtube.com/watch?v=OO3BBkGEMV8 - I keep falling asleep
 * Talk was way too dense, need to check repo directly and some textbooks instead
+* Need to remember that geometric algebra works for tensors of arbitrary dimension so it feels like this should speed up tensor math for neural networks

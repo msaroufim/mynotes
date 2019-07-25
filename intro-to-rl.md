@@ -27,12 +27,17 @@ It's important to note that 1 and 2 are with respect to some parent/teacher/mast
 
 ## Mathemizing Pavlovian Learning: Reinforcement Learning
 
-We're gonna try to formalize the main intuition of Pavlovian Learning mathematically so we're gonna start by introducing some terminology.
+We're gonna try to formalize the main intuition of Pavlovian Learning mathematically so we're gonna start by introducing some terminology to model the interactions between an agent and the environment it's operating in.
 
-$A$ is the set of all actions
-$S$ is the set of all states
+* $A$ is the set of all actions
+* $S$ is the set of all states
+* $R_t$ is the reward you get at time $t$ 
 
 Your goal is to learn a policy $\pi$ where a policy is defined
+
+In Picture courtesy of Sweta Bhatt
+
+![RL-intro](https://www.kdnuggets.com/images/reinforcement-learning-fig1-700.jpg)
 
 In English
 
@@ -95,7 +100,7 @@ ep = (s,a,r,s',done)
 where
 * $s$ is the current state
 * $a$ is the chosen action
-* $r$ is the instantaneous reward a this iteration
+* $r$ is the instantaneous reward at this iteration
 * $s'$ is the new state you end up in
 * ```done``` is a boolean that lets you know if the goal was achieved
 
@@ -140,19 +145,23 @@ The value tables we deal with in reinforcement learning can be too massive to fi
 
 Finding good representations manually is worthwile and I'll talk about it more in a later chapter but there's one really famous trick to compress the table using a deep neural network and surprise surprise we call it deep reinforcement learning.
 
+The main idea is that instead of explicitly keeping a giga table. We instead keep in memory the weights of a deep neural network. We then modify those weights using succesive applications of back propagation on the error between the output of the net KEEP GOING
 
-
-## Still need to talk about
+## Next steps for what you can learn
 * TD learning: Change value of state-action pair after simulating up to n steps
 * Monte Carlo sampling: will talk about this in the gambling chapter
 * Tabular methods vs deep methods
 * Exploration strategies
 * Policy gradient vs policy iteration
-* How state and actions can be represented by different kinds of sets to get very different behaviors
+* How state and actions can be represented by different kinds of sets to get very different behaviors - introduce DDPG idea
 * Model learning methods (world learning)
+* Using RNN to keep long memory
+* Distributed RL
+* Advantage Actor critic methods
 
 ## Bibliography
 * [Summary of all the methods on Medium](https://medium.com/@jonathan_hui/rl-reinforcement-learning-algorithms-quick-overview-6bf69736694d)
 * https://medium.com/@SmartLabAI/reinforcement-learning-algorithms-an-intuitive-overview-904e2dff5bbc
 * https://www.altexsoft.com/blog/datascience/reinforcement-learning-explained-overview-comparisons-and-applications-in-business/ - applications and challenges of RL
-* https://medium.com/emergent-future/simple-reinforcement-learning-with-tensorflow-part-7-action-selection-strategies-for-exploration-d3a97b7cceaf Arthur Juliani's awesome RL tutorial
+* [Arthur Juliani's RL tutorial](https://medium.com/emergent-future/simple-reinforcement-learning-with-tensorflow-part-7-action-selection-strategies-for-exploration-d3a97b7cceaf)
+* [Open AI baselines](https://github.com/openai/baselines)

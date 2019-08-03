@@ -141,3 +141,5 @@ https://www.youtube.com/watch?v=B7mc1wXPZR8
 * The expression problem
     * Defining new types to which existing operations apply: easy in OO and hard in Functional
     * Defining new operations which apply to existing types: easy in functional but hard in OO
+
+## SLAM in Julia ROME.jl

@@ -20,3 +20,56 @@ Rewards are in the shape of food or zones that give negative or positive reward
 8. Object permanance: what is the state of the art for encoding RNN with memory?
 9. Advanced preferences: planning?
 10. Causal reasoning: yeah IDK
+
+
+# Unixpickle obstacle tower challenge
+Codebase has lots of interesting ideas
+* core RL code + memory etc..
+* Some scripts to evaluate the agents on obstacle tower and log data and plot whatever you need
+* A recorder that can help bootstrap the agent with play from a human and past agents
+* A web based tool to label objects
+
+# Catalyst starter kit
+https://github.com/Scitator/animal-olympics-starter-kit
+Can do multiple GPU training for later 
+
+```
+# start db node
+redis-server --port 12012
+
+# start trainer node
+export GPUS=""  # like GPUS="0" or GPUS="0,1" for multi-gpu training
+CUDA_VISIBLE_DEVICES="$GPUS" catalyst-rl run-trainer --config ./configs/_exp_common.yml ./configs/ppo.yml
+
+# start sampler node
+CUDA_VISIBLE_DEVICES="" catalyst-rl run-samplers --config ./configs/_exp_common.yml ./configs/ppo.yml --sampler-id=1
+
+# view tensorboard logs
+CUDA_VISIBLE_DEVICE="" tensorboard --logdir=./logs
+```
+
+
+# Bsuite 
+
+https://github.com/deepmind/bsuite
+
+Loggers are here
+https://github.com/deepmind/bsuite/blob/master/bsuite/logging/csv_logging.py
+https://github.com/deepmind/bsuite/blob/master/bsuite/logging/sqlite_logging.py
+https://github.com/deepmind/bsuite/blob/master/bsuite/logging/terminal_logging.py
+
+Logger is very straightforward but an environment can be wrapped with a logger like so
+
+```python
+from bsuite.utils import wrappers
+
+return wrappers.Logging(env, logger, log_by_step=log_by_step)
+```
+
+Generalizes the Open AI interfaces
+
+* dm_env.Environment: An abstract base class for RL environments.
+
+* dm_env.TimeStep: A container class representing the outputs of the environment on * each time step (transition).
+* dm_env.specs: A module containing primitives that are used to describe the format * of the actions consumed by an environment, as well as the observations, rewards, * and discounts it returns.
+* dm_env.test_utils: Tools for testing whether concrete environment implementations * conform to the dm_env.Environment interface.

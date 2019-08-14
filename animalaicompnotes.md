@@ -4,6 +4,15 @@ https://github.com/beyretb/AnimalAI-Olympics
 
 Part of making this contest interesting is creating your own tasks since test tasks are unknown but has lots of stuff it could be tested on at evaluation time.
 
+
+## Very interesting points
+* Can create a whole suite of my own custom arenas using something like https://github.com/beyretb/AnimalAI-Olympics/blob/master/examples/configs/exampleTraining.yaml - include all the default ones, create a few custom ones and maybe even create a DSL to generate them 
+* How to submit to eval AI
+* For GPu training need to install Unity ML agents, CUDA and CUDADNN and set some environment configs. Can also do this via a custom version of docker provided by NVIDIA. CUDA was failing to install for me on Windows for some reason. https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Installation-Windows.md
+* Can submit via Docker - I fixed Hyper V on Windows https://github.com/beyretb/AnimalAI-Olympics/blob/master/documentation/submission.md
+* There is both an Open AI and Unity ML agents interface https://github.com/beyretb/AnimalAI-Olympics/blob/master/documentation/training.md - unity one looks simpler to work with
+
+
 # Testing info
 Main commonalities are understanding walls, ramps and tunnels (does ramps require a 3d understanding for this to work or are pixels enough?)
 Movable objects like cardboard boxes which vary in weight and shape so the behavior in which they will turn - can we encode an understanding of object shape and how its supposed to move?

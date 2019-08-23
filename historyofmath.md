@@ -45,21 +45,15 @@ Functions as independent entities started in the 1800s
 Hilbert was criticized for removing the art from math
 Poincare was obcessed by the 3 body problem and started thinking about phase space and from that invented topology. Invented topology, dynamical system theory, chaos theory
 Hilbert wanted to feed programs axioms and get all of math out and then Godels incompleteness theorems came out and it shook everything
-
-
-Hey SIMD,
-
-I saw your job posting for Omniverse and wanted to express my interest. Omniverse is something I'd be happy to work on even in my spare time so I'd really like a chance to work with people that see the value of building complex simulators
-
-I'm a Machine Learning scientist and Product Manager who has worked at Microsoft, NASA's JPL and I've been a researcher at UC San Diego and UC Berkeley. I know my math and code but I also know how to communicate with different stakeholders (I've worked on M&As at Microsoft when I was a PM) and work on well designed products that matter (I was the primary design lead for a next gen email ranker)
-
-I'm very comfy with advanced math. Some examples are on my personal blog and others are in commercial products that have been shipped.
-
-I've been programming in Python for about a decade, it's definitely my comfort language.
-
-Last year I quit my job to work on yuri.ai which is a Reinforcement Learning training and debugging platform for roboticists and game developers so Reinforcement Learning is my jam. As marketing material I'm also working on a book which should be out later this year. A tentative list of chapters can be found here https://github.com/msaroufim/Robot-Overlord-Manual
-
-If you have any questions about any of what I've said, please feel free to ask me tons of questions.
-
-Thanks,
-Mark
+Fourier 1830 developed a theory of heat which then needed him to come up with Fourier series
+By 1900s Ackernman function was not primitively recursive
+1931 systemization of math will never work according to godel
+1910 ramamujan was doing number theory
+Noone cared about discrete math until computers came around
+Universal way of representing math and computation idea existed, so Turing way wasn't groundbreaking until a bit later
+Bool came up with his algebra in 1830
+Category theory came even later which was an attempt to represent the meta structure of math regardless of the specifics of the structures
+Linear algebra made a comeback in the 1960s when computers came around and numerical simulations became big
+Dynamical systems also made a comeback
+Math has always been about computing stuff not proving stuff
+After WW2 PDEs became big so thats when the split happened with applied math and theoretical math. It's almost impossible to prove anything about PDE: macro vs micro, navier stokes etc..

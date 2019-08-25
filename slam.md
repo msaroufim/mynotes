@@ -45,6 +45,21 @@ The SLAM problem as described is not tractable because it involves an extremely 
 # Libraries
 * https://github.com/JuliaRobotics/Caesar.jl - do a usage example
 * http://www.juliarobotics.org/Caesar.jl/latest/examples/examples/
+* https://github.com/ferrolho/ModernRoboticsBook.jl/blob/master/examples/Modern%20Robotics%20Examples.ipynb
+
+## Ceasar.jl
+http://www.juliarobotics.org/Caesar.jl/latest/
+
+Define a factor graph by defining variables and the priors on them and then do inference and see the plots
+
+### 
+
+### Trilaterion slam 2D
+Setup range sensors as ball around a certain point 
+got confused when they started talking about controllers
+
+# Open questions
+* Does SLAM work without ground truth data? Can sensors and CV algorithms replace that costly part?
 
 # References
 * Thrun book

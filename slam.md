@@ -44,7 +44,7 @@ The SLAM problem as described is not tractable because it involves an extremely 
 
 # Libraries
 * https://github.com/JuliaRobotics/Caesar.jl - do a usage example
-
+* http://www.juliarobotics.org/Caesar.jl/latest/examples/examples/
 
 # References
 * Thrun book

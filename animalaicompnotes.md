@@ -11,6 +11,7 @@ Part of making this contest interesting is creating your own tasks since test ta
 * For GPu training need to install Unity ML agents, CUDA and CUDADNN and set some environment configs. Can also do this via a custom version of docker provided by NVIDIA. CUDA was failing to install for me on Windows for some reason. https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Installation-Windows.md
 * Can submit via Docker - I fixed Hyper V on Windows https://github.com/beyretb/AnimalAI-Olympics/blob/master/documentation/submission.md
 * There is both an Open AI and Unity ML agents interface https://github.com/beyretb/AnimalAI-Olympics/blob/master/documentation/training.md - unity one looks simpler to work with
+* I only need to modify the code in trainMLAgent.py, the docker submission code is just there to make sure that my inference isn't completely broken - but looks like I need to at least copy paste the neural network data file but AFAIK no training is happening in testDocker.py or Agent.py in the test submission location (it's mostly data loading facilities)
 
 
 # Testing info

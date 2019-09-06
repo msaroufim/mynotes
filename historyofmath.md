@@ -57,3 +57,4 @@ Linear algebra made a comeback in the 1960s when computers came around and numer
 Dynamical systems also made a comeback
 Math has always been about computing stuff not proving stuff
 After WW2 PDEs became big so thats when the split happened with applied math and theoretical math. It's almost impossible to prove anything about PDE: macro vs micro, navier stokes etc..
+About 3M math theorems exist today

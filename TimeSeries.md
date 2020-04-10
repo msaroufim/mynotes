@@ -49,3 +49,8 @@ When given a new dataset check
 * Spurious correlations
 
 Chapter 4-7 Look like the most interesting in the book
+
+Simulations can be easier than forcasts
+* Heuristic
+* Physical laws (continuous)
+* DIscrete event

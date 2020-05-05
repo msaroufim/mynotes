@@ -41,3 +41,6 @@ If you increase the total loss of your task it'll make your perf better at expen
 It's difficult to reproduce a great model if a chain of fine tunings inadertendtly had a big impact on you.
 
 What should the etiquette be? What are the rules of thumb or organizing ML teams given how complex task interactions can look like.
+
+# Appendix
+Another great talk https://www.youtube.com/watch?v=oBklltKXtDE

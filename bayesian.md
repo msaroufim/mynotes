@@ -85,3 +85,6 @@ representations of the probability of different outcomes and their relative payo
 
 # References
 * Bayesian REinforcement Learning Survey https://arxiv.org/pdf/1609.04436.pdf - long but good
+
+## Conversation with Stephane
+* 

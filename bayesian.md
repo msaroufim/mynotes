@@ -81,10 +81,11 @@ of actions is particularly important in decision and control problems. Good deci
 representations of the probability of different outcomes and their relative payoffs
 3. Learning an optimal model for data is similar to compression because you can just use your model to generate your data.
 4. Model the uncertainty in your prediction
-5. Automatic Statistician: Replace data scientists with bayesian laerning. Are any of the prototypes here useful? My gut feel is no
+5. Automatic Statistician: Replace data scientists with bayesian laergning. Are any of the prototypes here useful? My gut feel is no
 
 # References
 * Bayesian REinforcement Learning Survey https://arxiv.org/pdf/1609.04436.pdf - long but good
 
 ## Conversation with Stephane
-* 
+* Bayesian techniques good for small data domain like checking whether a coin is fair or casino is fair
+* Bayesian technique good for data analysis where you have a small amount of data and try to see which model best fits it (deep learning would such here)

@@ -54,5 +54,60 @@ This looks really interesting, I'll read up some more about this later
     * Is there a way to algorithmically determine the number of reaction steps?
 * The ranking in the repo is done by creating a dataset where you have a pair of molecules ```[molecule_1, molecule_2]``` and then the prediciton is which one is more complex ```[0,1]``` which is binary classification and to decide which label we have we need to use publicly available purchase cost or number of reaction steps
 
+## Convolutional Networks on Graphs for Learning Molecular Fingerprints
+https://papers.nips.cc/paper/5954-convolutional-networks-on-graphs-for-learning-molecular-fingerprints.pdf
+
+Benefits
+1. Features are more interpretable
+2. Better performance on downstream tasks
+3. Vectors are smaller if learnt via a neural network
+4. Similar molecules or submolecules will have similar structure
+
+Based of circular fingerprint technique
+
+Past work has has custom designed features to turn a molecule of arbitrary size into a fixed length vector and then feed that vector to a deep neural network
+
+They call the work convolutional because you first compute local features on each atom and then aggregate them globally across all atoms via the edges/bonds
+
+Applications
+1. Solubility: Regression
+2. Drug efficacy: Predict the dose/response
+3. Organic photovoltaic efficiency: regression, given a substance how effectively does it turn light into electricity. Main application is consumer electronics
+
+> Circular fingerprints are analogous to convolutional networks in that they apply the same operation locally everywhere, and combine information in a global pooling step.
+
+Let's say we start at some submolecule, give it a vector representation and then we concatenate this representation with the representation of its neighbors.
+
+Softmax is a differentiable version of an index 
+
+We don't our encoding to change depending on which neighborhood we started with. Neighborhood invariant.
+
+We can visualize which subparts of a molecule most activate a certain prediction (e.g: toxicity or solubility) by looking at the subgraph with the highest activation
+
+Experimental setup Our pipeline takes as input the SMILES [30] string encoding of each
+molecule, which is then converted into a graph using RDKit [20]. We also used RDKit to produce
+the extended circular fingerprints used in the baseline. 
+
+Training used batch normalization
+
+Experiments whshowo about 5x improvement
+
+Training took at most an hour
+
+Molecules tested were mostly small but for large molecules we'd need to perhaps use hierarchical techinques
+
+# Open questions
+* Related work, can topolically sort a molecule as a tree and then input that tree to a recursive neural network - can this be made faster?
+* Does multitask learning help here
+* Implementation uses a CPU but it also uses batch normalization which means we can expect 100x speedups on a GPU 
 
 
+
+
+
+
+https://github.com/HIPS/neural-fingerprint
+
+
+## References from Mazen
+https://en.wikipedia.org/wiki/Coherent_Accelerator_Processor_Interface

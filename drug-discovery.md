@@ -3,7 +3,67 @@
 ## Drug Discovery
 
 ## Protein Folding
-TODO: Look at Alphafold
+
+### Problem definition
+https://www.technologyreview.com/2018/12/03/138830/deepminds-ai-system-will-accelerate-drug-discovery-by-predicting-how-proteins/
+
+* predict shape of protein by looking at sequence of amnio acids
+* relevant for drug discovery
+
+This means that it should be possible in principle to predict the shape without too much domain knowledge, similarly to the molecular fingerprinting work
+
+Compute pairwise distances between amino acids which are present in the protein? A protein is just a long amino acid
+
+Given Sequence and MSA features -> DNN -> predict distance and torsion -> minimize protein specific potential in loss function
+
+Bond lengths are known so can fully characterize the geometry with the angles between amino acids
+The problem is also constrained to the backbone not so much the superficial bonds? But open question is how do you know what's backbone and what is not
+
+Two core problems
+1. Blind prediction, predict shape of protein without data
+2. Template predicition, use data from similar amino sequences to predict shape of protein
+
+Alphafold does 1 not 2. 2 is much easiser. Alphafold beats all techniques that do 2 by doing 1.
+
+Main model uses Resnet.
+
+Contact prediction: is the angle less than x?
+Alphafold: the angle is x which is a harder problem
+Covariation: signal that tells you where residue will be in contact
+
+Deep Learning is generally useful for protein prediction because the dataset and loss function are clear and well understood and the sequences are very long
+
+Visualzie the distances in a 2d matrix, [i,j] pixel is the distance between amino acid with index i and acid with index j
+
+Predicting the actual distances and torsion angles can be solved using 2 deep residual networks. Structure of each network follows batchnorm, ELU, 3x3 dilated convolutions which skip some points
+
+Data augmentation they use is to crop proteins into 64x64 chunks
+
+End level precision @ L is just %50 
+
+https://en.wikipedia.org/wiki/Ramachandran_plot
+
+### Basic definitions
+* When a polypeptide contains more than fifty amino acids it is known as a protein
+* What is MSA?
+* How is the data used exactly?
+* Get some sort of basic biochemistry reference
+
+
+### Related applications
+* Protein to protein interaction
+* Small molecule binding
+* protein design
+* experimentally assisted structure prediction
+
+
+### References
+* Code: https://github.com/deepmind/deepmind-research/tree/master/alphafold_casp13
+* Paper: https://www.nature.com/articles/s41586-019-1923-7.epdf?author_access_token=Z_KaZKDqtKzbE7Wd5HtwI9RgN0jAjWel9jnR3ZoTv0MCcgAwHMgRx9mvLjNQdB2TlQQaa7l420UCtGo8vYQ39gg8lFWR9mAZtvsN_1PrccXfIbc6e-tGSgazNL_XdtQzn1PHfy21qdcxV7Pw-k3htw%3D%3D
+* Dataset: CASP, Protein Data Bank 
+* Talk: https://www.youtube.com/watch?v=uQ1uVbrIv-Q
+
+
 
 ## Molecules
 

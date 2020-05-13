@@ -2,10 +2,40 @@
 
 Anything that varies over time can be modeled with a differential equation
 
+## Universal differential equations paper
+https://arxiv.org/pdf/2001.04385.pdf
+
+* Machine Learning shines at finding non linear interactions in data but requires lots of data which in many domains in particular scientific domains is very expensive to get and expensive to label
+* particular domains where data is expensive to get include pharmacology, economics, aerospace
+* Scientific models are similar in spirit to an ML model because they synthesize the results of various experiments into a bunch of quations
+* In science most models are wrong by design, they make simplifying assumptions - can we remove these simplifying assumptions by learning a scientific model from experimental data directly
+* There is flow of ideas in both ways from scientific computing to machine learning and machine learning to scientific computing
+* Neural networks are universal function approximators which means any continuous function can be approximated with a neural net which means any differential equation can be modeled by a neural net
+* Main contribution of this work is to incorporate scientific models as a prior in ML models and the main benefit of this is that you end with much smaller models which are faster for inference and need a lot less data for training (prior info doesn't have to be a neural network it can also be a random forest)
+* modeling prior information with a universal approximator also lets you model stochastic or delayed information
+* Automatic differentiation algorithm, method of adjoints which scales with the number of parameters
+* Pullback: is a linear function from the inputs to the outputs https://en.wikipedia.org/wiki/Pullback_(differential_geometry). Pullback in the context of a deep neural network is backpropagation
+* Zygote is the AD library and Flux is the Deep Learning library and this work hooks it up to the DiffEq library
+* Event driven differential equation: can model stuff like a ball when it bounces on a surface and all the dynamics change in an instant
+* Implementations can be made faster on a GPU
+* Can speedup Navier Stokes by 15000
+* It is impractical to solve high dimensional PDEs with meshbased techniques since the number of mesh points scales exponentially with the number of dimensions. Given this difficulty, mesh-free methods based on latent functions such as neural networks have been constructed to allow for direct solving of high dimensional PDEs
+* Let's say in the context of the Lotka Volterra differential equations you know how x and y change w.r.t to themselves but not w.r.t to each other so you model this interaction as a neural network. You train those 2 neural networks with the experimental data you collected
+* In the case of Lotka Volterra only 31 points are in the dataset and the neural network is of size 3 x 32 which tiiiiny
+
+## TODO
+* Read more about Hamilton Jacobi Equation https://www.princeton.edu/~moll/ECO521Web/Lecture4_ECO521_web.pdf
+* Basics of differential geometry  https://www.cs.cmu.edu/~kmcrane/Projects/DDG/paper.pdf
+* Sindy algorithms https://arxiv.org/abs/2004.02322 for modeling dynamical systems from data
+* Adjoint method for PDE: https://cs.stanford.edu/~ambrad/adjoint_tutorial.pdf
+* Depending on the size of input, output, compute and memory constraints pick of 7 different solver methods dynamically
+
+
 ## Github issues
 #### https://github.com/SciML/DiffEqFlux.jl/issues/48
 * Tracked array: Array represents the weights of some neural network, tracked array makes it clear that we want to backprop these weights
 * Keep track of this issue and when I can solve it means I understand hwat's going on a bit better
+* Fisher KPP model: https://en.wikipedia.org/wiki/Fisher%27s_equation - models reaction and diffusion
 
 
 #### https://github.com/SciML/OrdinaryDiffEq.jl/issues/1064

@@ -132,6 +132,46 @@ Advantages
 * Check out K programming language and see ideas that I could use from APL derivatives
 * Check out data driven differential equations in more depth, sounds amazing
 
+
+## https://tutorials.sciml.ai/html/introduction/03-optimizing_diffeq_code.html
+
+## https://mitmath.github.io/18337/lecture2/optimizing
+
+#Julia gives you the tools to optimize the solver "all the way"
+#but you need to make use of it.
+#The main thing to avoid is temporary allocations.
+#For small systems, this is effectively done via static arrays.
+#For large systems, this is done via in-place operations and cache arrays.
+#Either way, the resulting solution can be immensely sped up over vectorized formulations by using these principles.
+Number of threads seems to be set by the Juno editor, I wonder how to set it directly in my code because I'm just using 1/32 threads 
+ Vectorization === SIMD -> Single instruction multiple data operation
+ Data loading isn't as big of a bottleneck since you can load a batch f data and operate on it in parallel on your CPU
+ Julia, MATLAB, and Fortran are column major. Python's numpy is ow-major.
+ Typically in clean/pure code you never want to mutate but in Linear lgebra you kind of have to
+ Allocate to stack when you can, Julia compiler will automatically llocate stuff to the stakc if the size is known
+ In Julia you don't have to worry about vectorization as much
+ When you're slicing data you need to consider whether you're llocating the slice in a new location or just holding a pointer to it
+ In algorithms that need O(n) time, heap allocations become the main bottleneck (memory cost sneaks up on you)
+A stiff differential equation is one which is known to be unstable for many solving techniques
+This reminds me of RL, is there even a concept of stiffness?
+Difficulty gradient between problems
+#https://mitmath.github.io/18337/lecture2/optimizing
+Static arrays are particularly useful if you're returning data to the same place and want it to be overwritten as opposed to
+#garbage collected
+For large systems vectorizng operations and reusing datatstructures will give you speed ups
+Impact is large as in you can go from a problem that need GB of memory to MB -> 1000x improvement 
+Adding two integers take 0.001 ns, so your numerical is not gonna beat this
+Julia also converts code to the right type at compile time which lets it still add integers and floats as fast it would add floats without any extra overhead
+In cases where the return type of a function is unknown, Julia can use return types. This is veyr similar to Maybe Monad in Haskell
+Untyped containers will ruin perfomrance, this also applies to structs. The more structure you can add to the type definition the more you'll help your compiler
+REPL is always gonna be slow since the type of anything can't be inferred
+
+> Julia is not fast because of its JIT, it's fast because of function specialization and type inference
+
+Some operations are particularly fast in hardware like fuse multiply add
+
+Julia has in @inbounds operation to skip bound checking when doing array calculations so you sacrifice safety for speed.
+
 ## References
 
 https://benchmarks.sciml.ai/

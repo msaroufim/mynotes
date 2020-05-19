@@ -90,6 +90,23 @@ Paper proposes movement pruning which looks at how weights change from task to t
 
 It's crazy how simple and effective the heuristics that hugging face uses are. Most of their work goes towards solid benchmarking and ablation studiesm, true empiricists
 
+
+## Hugging Face transformers library walkthrough notes
+* Pretrained bert-base-uncased is 440MB
+* Tokenizer is great and easy to use. They even have a rust implementation for really fast tokenization for online use cases
+* if you enable logging hugging face will show you the full model architecture  
+* Can pad encoding of words 
+* Can visually inspect attention matrices
+* Special tokens can be used to separate sentences
+* Position ID assigned
+* Most of the models I read about are already implemented here  https://huggingface.co/transformers/pretrained_models.html#
+* Different NLP tasks can be setup with ```pipeline('task_name')``` including text generation, named entity recognition, masked language modeling, summarization, translation
+* Can upload models with the CLI
+* Usage examples of running on TPU
+* Some helper CLI functions to run on different tasks
+*  
+
+
 ## TODO
 * just read the hugging face code for how this stuff works
 * Look up precise definition for multihead attention https://lilianweng.github.io/lil-log/2018/06/24/attention-attention.html#multi-head-self-attention - Key, Query and Value are just abstractions to represent attention

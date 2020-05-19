@@ -68,7 +68,29 @@ BERT like models are huge even though text corpus and total weights per layer ar
 3. Splitting activation inside feed forward layers 
 
 
+## DistillBERT
+Reduce BERT size by 40% while retaining 97% of perf
+
+Introduce a triple loss including langauage modeling, distillation and cosine distance loss
+
+> Knowledge distillation is a technique where a smaller model is trained to copy the ouput of a larger model. More specifically, goal is to minize the cross entropy between the 2 models.
+
+Control smoothness of output distribution by controlling temperature with softmax-temperature
+
+Add cosine embedding loss to align direction of hidden state vector of teacher and student
+
+Smaller network specifically means fewer layers
+
+Initialize student by taking every other layer from the teacher network
+
+## Movement Pruning: Adaptive Sparsity by Fine Tuning
+Magnitude pruning used a lot in supervised learning but doesn't work for transfer learning. Main idea is very simple sort nodes by weight and remove the smallest weight one by one. It's surpringly difficult to beat this simple heuristic
+
+Paper proposes movement pruning which looks at how weights change from task to task and remove the weights that change the most
+
+It's crazy how simple and effective the heuristics that hugging face uses are. Most of their work goes towards solid benchmarking and ablation studiesm, true empiricists
+
 ## TODO
 * just read the hugging face code for how this stuff works
-* Look up precise definition for multihead attention
+* Look up precise definition for multihead attention https://lilianweng.github.io/lil-log/2018/06/24/attention-attention.html#multi-head-self-attention - Key, Query and Value are just abstractions to represent attention
 * Reversible transformer: recover activation form a layer  by the activation from following layers (downloaded Gomez 2017 paper on reversible resnet)

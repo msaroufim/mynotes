@@ -1,3 +1,51 @@
+# Statistical rethinking
+
+## Chap 1
+* Purpose of a statistical test isn't to falsify paradigms, most * statistical tests 
+* are just ways of exploring data
+* Null models are not unique so not entirely clear what null hypothesis
+* Make predictions and falsify future predictions not falsify old * hypothesis that don't exist
+* Don't falsify the silly idea that nothing is happening
+
+Bayesian data analysis
+* Extend logic to continuous plausibility, underdeveloped because we didn't have computers
+* MCMC makes it tractable
+* Used to be controversial - Fisher said it must be rejected
+* Inventors were Laplace, Jeffreys and Swirles (who were geophysicists)
+* Count all ways can happen with assumptions and assumptions that are more consisten with data are more plausible
+
+Multi level modeling
+* Models with multiple levels of uncertainty. Replace parameters with models
+
+Model comparison
+* Instead of falsifying null model, compare meaningful models
+* How to guard against overfitting. Scientists are professional overfitters. Nature work fit 4 parameter model to 4 points. In industry this would never happen
+
+
+## Chap 2 Garden of Forking data
+
+Process
+1. Design model
+2. Condition model (update)
+3. Evaluate the model (critique)
+
+Design model
+* Collect data such as coin toss
+* List variables
+* Define generative relations
+* Input: joint prior and deduce joint posterior
+* Some variables are observed and some are not
+
+Condition - use Bayes theorem to
+* Every posteriror is a prior for next observation
+* Sample size automatically emobdied in posterior
+* Order is irrelevant
+
+Evaluate
+* Did process make sense
+* Did question make sense
+* Is answer sensitive to changes in assumption
+
 # Deep Bayesian Learning
 
 ## The Case for Bayesian Deep Learning

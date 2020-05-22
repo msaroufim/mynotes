@@ -46,6 +46,15 @@ Evaluate
 * Did question make sense
 * Is answer sensitive to changes in assumption
 
+How to compute posterior
+1. Analytical approach (often impossible)
+2. Grid approximation (intensive)
+3. Quadratic optimization (limited)
+4. Markov chain MOnte Carlo
+
+Confidence interval is a bad name it shuld be compatibility interval
+
+
 # Deep Bayesian Learning
 
 ## The Case for Bayesian Deep Learning

@@ -1,4 +1,9 @@
+# TODO
+Write docs for cmdstan and turing.jl - many low hanging fruit there
+
 # Statistical rethinking
+
+
 
 ## Chap 1
 * Purpose of a statistical test isn't to falsify paradigms, most * statistical tests 

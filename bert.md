@@ -59,6 +59,8 @@ Key, Query, Value which we've defined earlier
 1. Attention layer
 2. Layer normalization
 
+Attention is just a bunch of stacked dot products with a fotmax
+
 ```python
 # Attention layer
 #That's it
@@ -111,6 +113,37 @@ Classification usig Transformer
 ```python
 print(f'-- {"test" if arg.final else "validation"} accuracy {acc:.3}')
 ```
+
+## Hugging face implementations
+It also uses token embeddings and otherwise looks identical to the previous codebase
+
+It uses the narrow attention by default
+
+More complicated than the other codebase and unclear to me why at this point
+
+## Graphcore implementation
+
+Code feels almost impossible to understand, I need a few more days to get this.
+
+There's a bunch of custom poplar ops
+* Group pattern
+* Sparse SGD
+* Disable dropout for inference
+
+
+All the configs for models are in JSON files
+
+Data is created
+* Sampler in Python, includes a distribute dsampler which uses MPI
+* Custom tokenization
+* Custom data downloaders for squad and wikipedia
+
+
+Base
+* What's up with the optimizer factory?
+* Why is ONXX used so much?
+* Model is in ```bert_model.py``` and the task specific implementations are in ```bert.py```
+
 # Embeddings summary
 
 Cove

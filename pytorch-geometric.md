@@ -51,4 +51,5 @@ Project has a simple interface to create datasets
 * This is the original graph convolution paper https://arxiv.org/pdf/1609.02907.pdf - read and summarize this
 * Edge convolution https://arxiv.org/pdf/1801.07829.pdf
 * List of tutorials here https://pytorch-geometric.readthedocs.io/en/latest/notes/resources.html
-
+* https://github.com/facebookresearch/PyTorch-BigGraph
+* Beginner friendly tutorial https://towardsdatascience.com/hands-on-graph-neural-networks-with-pytorch-pytorch-geometric-359487e221a8

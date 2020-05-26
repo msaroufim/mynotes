@@ -2,7 +2,35 @@
 
 ## Drug Discovery
 
-## Protein Folding
+## Deep Learning for genomics
+* RNA induced silencing complex
+* Transcription Factor Binding
+* Chromatic Accesibility 
+
+## ML for microscopy
+* Handling samples requires lots of dexterity, robots super helpful here
+
+## Generative modeling
+Can use transformers or any generative model to come up with new molecules or proteins.  
+
+### ML for diagonses
+* Can use saliency maps in images to give signal as to why a diagnosis was made
+* Violin plots let us plot a full distribution to better understand how multimodal a prediction is
+
+### Protein Folding
+Protein Data Bank is still considered small data
+
+Computational approaches
+1. Homology modeling: look at similar protein structure with known structure and adjust it
+2. Physical modeling: use the law of physics to see which configurations are most stable
+
+Another related ML problem to protein folding is predicting whether a molecule will bind to a protein.
+
+2 kinds of featurization for proteins
+1. Grid featurization
+2. Atomic featurization
+
+
 
 ### Problem definition
 https://www.technologyreview.com/2018/12/03/138830/deepminds-ai-system-will-accelerate-drug-discovery-by-predicting-how-proteins/

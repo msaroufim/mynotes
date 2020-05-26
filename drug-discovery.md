@@ -9,6 +9,7 @@
 
 ## ML for microscopy
 * Handling samples requires lots of dexterity, robots super helpful here
+* Given a super high resolution image, use a convnet to make predictions
 
 ## Generative modeling
 Can use transformers or any generative model to come up with new molecules or proteins.  
@@ -16,6 +17,8 @@ Can use transformers or any generative model to come up with new molecules or pr
 ### ML for diagonses
 * Can use saliency maps in images to give signal as to why a diagnosis was made
 * Violin plots let us plot a full distribution to better understand how multimodal a prediction is
+* we can also build a bayesian network for medical diagnoses where the nodes are symptoms, tests and diseases. Skimming papers it looks like these networks are huge, I wonder how good they are
+
 
 ### Protein Folding
 Protein Data Bank is still considered small data

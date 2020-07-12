@@ -45,6 +45,27 @@ Nodes have to pass each other their embeddings as messages, so if each one can b
 * etc..
 
 
+
+## VectorNet: Encoding HD Maps and Agent Dynamics from vectorized Representation
+https://arxiv.org/pdf/2005.04259.pdf
+
+Collaboration between Waymo and Google
+
+Past approaches to modeling maps use Convolutional Neural Networks on top of high resolution image data but can instead model roads as vectors 
+
+Augment perception systems such as object detection and tracking with prior knowledge provided from HD maps
+
+Roads can be modeled as polylines - i.e: sequence of lines
+
+Contributions
+1. How to use vectorized scene context instead of rendered scene
+2. Use hierarchical graph network and node completion auxilary task
+3. Evaluate on argoverse dataset 
+
+Each road is featurized as a node in a graph and keeps track of its end and start point with x,y,z coordinates, features like speed limit and an integer to map twhich polyline it belongs to.
+
+Observed trajectories AND map features are represented as a sequence of vectors which are then passed to a fully connected graph (why fully connected?) and trajectories are masked and recomputed in a self supervised way
+
 # Open questions (for me)
 * How is fixed point theorem relevant? https://en.wikipedia.org/wiki/Fixed-point_theorem
 * Longer survey useful? http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.1015.7227&rep=rep1&type=pdf

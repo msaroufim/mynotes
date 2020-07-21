@@ -34,6 +34,22 @@ They also used some synthetic datasets like arithmetic tasks. This is nice becau
 
 News article generation (the appllication everyone is freaking out over)
 
+## Longformer video 
+https://www.youtube.com/watch?v=_8KNb5iqblE&t=642s
+
+In regular transformer with n input sequence tokens and n output sequences you have O(n^2) memory requirement
+
+Longformer has three ideas
+1. Instead can slide a kernel of size k so can reduce time to O(nk) where k is a constant - intuition is most relevant tokens are close to each other
+2. A simple sliding window takes many layers to incorportate information for long sequences so instead they use a dilated sliding window. In lower layers use sliding window and higher level layers they ues dilated sliding window to incorporate more global information 
+3. Global sparse attention - 
+    * factorized self attention, break attention matrix into 2 sparser ones
+    * Custom attention to specific tokens (task specific) - example for classification have global attention for CLS and for question and answering, have global attention for ?
+
+
+Window size is 512 tokens which as much as classical transformers. k isn't actually small. Which means they can pretrain from ROBERTA
+
+This work lets you work with longer documents on expensive machines, not run transformers on small memory machines
 
 ## Yannis Kilcher BERT summary https://www.youtube.com/watch?v=-9evrZnBorM&t=275s
 Bidirectional training

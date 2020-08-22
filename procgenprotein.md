@@ -95,7 +95,13 @@ PCA embeddings project to our understanding of amino acids: aromatic, aliphatic,
 
 They also tried generating sequeences with only conditioned tags which are then passed to the HHblits package to search for MSA (can also visualize)
 
-Attention heads visualized with VIG
+## Attention heads visualized with VIG
+This work is interesting visualizes attention layers by depth and head to get a general sense of patterns
+Early layers focus on neighbors
+Middle layers focus on dependency parse and part of speech
+End layers focus on the whole sentence
+
+Can also take a neuron view and seee which neurons gave the highest attention weight to which query and key and most influence softmax(q . k)
 
 
 

@@ -104,8 +104,58 @@ End layers focus on the whole sentence
 Can also take a neuron view and seee which neurons gave the highest attention weight to which query and key and most influence softmax(q . k)
 
 
+# Transcript
+## More references
+Mention Khan academy class
+Intro to protein structure book by branden and tooze
+
+
+For references on transformers the peter bloem article is great or you can see some of my vidoes on the subject, i'll put the details in the description
+
+At every step you get a distribution over tokens
+
+
+Protein engineering, making new kinds of substances, drugs, materials, gets into the realm of sci-fi very quickly
+
+Image on page 2 is a good summary
+
+If you found this interesting please let me know I'm considering making a series on proteins for ML engineers
+
+0. Why is this work important - protein engineering, make new substances, uses transformers which are amazing at working with language to proteins. The only common thing these 2 problems have is that they're both sequence problems
+1. What is a protein - amino acid
+    * Vocab size of 23-25?
+    * not much structured data lots of sequences
+    * Structure determined via x-ray crystallography, nuclear magnetic resonance, electron crytoloography
+    * Protein Amino Acid, Side Chain, Carboxyl group
+    * Shape determines the function whether its hydrophobic or hydrophylic
+    * Amino ACid is a combination of Amino and Acid molecules
+    * If DNA is code then protein is an exe or bash script
+    * Structure determines function, all differ in side chain
+    * Several kinds of structure - primary the order, secondary (parallel, anti parallel)
+    * Tertiary interaction of side chain
+    * Quaternary: Multiple chains
+    * The dream is to provide the function we want as a spec and get a protein that does that. This work gets pretty close to that dream
+2. Transformer summary
+    * Attention
+    * Key, Value, Query
+3. Everything is a sequence - vocab
+4. Describe data - tags and proteins (Show the datasets)
+5. How to measure quality and experimental results with 3 software programs
 
 
 
+2 amino acids out of 600 are responsible for sickle cell anemia - small variations make huge changes
+
+Primary -> chain of polypetide
+Secondary -> beta and helix
+Tertiary -> 3d shape of single polypetide chain
+Quatternary -> 3d change of multiple polypetide chain
 
 
+Figures summary
+1. Lots of sequences not many structures, give desired arguments, get protein then infer shape
+2. Larger models would be better, no gap between training and test accuracy
+3. Token by token prediction, perplexity reduces near the end of a sequence
+4. More tags the better the results
+5. Less energy compared to mutation and this is maintained accross longer sequences
+6. Generalizes outside of protein families its directly seen

@@ -159,3 +159,57 @@ Figures summary
 4. More tags the better the results
 5. Less energy compared to mutation and this is maintained accross longer sequences
 6. Generalizes outside of protein families its directly seen
+
+## Other video summaries
+## AI coffee break
+https://www.youtube.com/watch?v=pFf4PltQ9LY&list=WL&index=2&t=0s
+
+* BERT can be used on text or images
+* What about analyzing protein structures
+* Uses masked word prediction
+* Self attention compute simportant scores in the same sequence, attention tokens from different sequences
+* Learns coreference, part of speech etc..
+* 3 important pieces in how cells live DNA, RNA, Protein - DNA is blueprint and protein is machinery - DNA has letter A - T - C - G. Proteins have 20 amino acids
+* Proteins are 2d sequences of amino acids but they live in 3d space and these structures can be understand via secondary srtructure, tertiary structure and quaternary structure
+* Proteins interact at binding sites - partner protein is called a ligand
+* In NLP we have words that we build into sentence
+* Take amino acid sequence mask it and then figure out MLM - english vocab is 10K vs vocab here is 20
+* For detecting interesting properties like binding sites they look at attention patterns to look at properties of amino acids
+* Find attention heads that align with contact map, heads attention is highly correlated with binding site 
+
+
+## Yannic Kilcher
+https://www.youtube.com/watch?v=q6Kyvy1zLwQ&list=WL&index=3&t=0s
+
+* Jesse Vig the visualize attention layers guy
+* Trained to perform language modeling
+* Can inspect the BERT model using attention heads 
+* Yannic keeps calling this investigative work
+* Both mention to make sure you subscribe
+* DNA an encoding of all biological functions are realized through proteins -> DNA -> RNA polymerase -> Protein which is a chain of amino acids - 20 diffferent amino acids
+* 3d shape is very important, shape determines function - proteins can cut, some can hold stuff 
+* Amino acids can be substituted and if the shape doesn't change then the function doesn't change
+* Spans form helixes or sheets - nice to show them on the video directly - tertiary structure is the whole thing for e.g doulbe ring
+* Does BERT solves 2 problems?
+    * Does BERT know which amino acids are going to end up in contact with each other and where the binding sites are
+    * which amino acids can bind to other molecules - hemoglobyn traps oxygen in blood
+* If molecule 1 and 3 are contact sites or binding sites then there should be one layer where the connection is strong between them 
+* To validate where those connections are you need a seperate software stack to predict them and then you're not training on this supervised data but just checking if it makes sense
+* Probing task: take a layer and run it through a linear classifier, is this a binding site
+* THey took a pretrained BERT model, find attention heads that correlate with some specific amino acids
+* Because vocab is small then you can have attention on single tokens especially in first layer and in the last layer it would specialize to the last token
+* You can substitute an amino acid and nothing really happens this is represented as BLOSUM62 substitution matrix - it's litterally a 20 x 20 matrix where high values mean you can substitute
+* For 2 amino acids get the attention matrix and then calculate correlation of 2 - the more correlated patterns are the more likely we are to substitute them
+* I like this idea a lot of thinking of an example as all its attention examples and taking correlations between them
+* Attention is largely consistent with blosum62 scores
+* Attention is strongly correlated with contact location
+* For tertiary structure binding site comes in later layers but problem is harder - this makes intuitive sense since tertiary is harder than secondary
+* Are there limitations to this model? Should we add more data? Make the model bigger or capture more information besides just sequences
+
+## Additional references
+
+May need to read the BERTology paper as well https://arxiv.org/pdf/2006.15222.pdf
+Dani channel is a good model for combining humor into the episodes https://www.youtube.com/watch?v=nR9UfOueJPU
+I wonder if I should also buy a greenscreen
+Need to make sure we implement VIG mechanism to visualize attention layer
+After the MLM model is done need to take a look at attention layers with vig then do the correlation study with blosum. See which heads are aligned with contact prediction (find a dataset that has information about this)

@@ -186,3 +186,53 @@ For each functionality unity creates .meta files with the necessary data
 5. 
 
 Still feels fiddly, isn't as seamless as other workflows I've seen
+
+# ECS by Board to Bits Games
+https://www.youtube.com/watch?v=2rW7ALyHaas
+
+First impression is "don't I already use ECS?"
+
+Inheritance only allows one parent
+
+Thing -> Rock or Mammal or Bird or Fish
+Mammal -> Dog
+
+Add components to entities like position and rotaiton or rendering or physics or laying eggs - by this definition Unity already uses ECS
+
+Unity MonoBehavior are still object oriented class that get both data nd methods so system and component are merged. From a memory standpoint all the data with that gameobject is then spread accross the heap, also means you may be holding data you don't really need
+
+So solution is a more pure version of ECS - data driven development process
+
+True ECS
+* Entity is a container for unique hashes
+* Systems are methods that access or modify data
+* Component will be the data for what you need to move an object edxample position, direction and speed - store arrays in memory
+
+Works well with multiple processor cores and lots of values
+
+
+Applications
+1. ECS bares similar advantages to flyweight pattern, strategy games and large scale simulations come to mind
+VR
+2. Efficiency in ECS will help boost up framerate in VR
+3. Not fully interated in Unity yet (as of Jam 2019, you have to download it seperately)
+
+https://www.youtube.com/watch?v=7pSGrnU6zw8&ab_channel=BoardToBitsGames
+
+ECS benefits
+1. More efficient memory layout
+2. Multithreading
+3. Optimizing C# scripts
+
+There are 3 things
+1. ECS 
+2. Job system
+3. Burst Compiler
+
+Job system helps divide up work over multiple cores
+
+### Why still use GameObjects
+1. Still too complicated
+2. Limited documentation and more features coming soon
+3. Not every game needs it, we don't need dwarf fortress amounts of data
+4. Lots of manual controls and references (closer bookkeeping similart to C won't be beneficial)

@@ -255,3 +255,8 @@ Nice minimal example here https://youtu.be/Z9-WkwdDoNY?t=175
 https://youtu.be/Z9-WkwdDoNY
 
 Burst compiler system turns job system into fast machine code
+
+# Jonathan blow commentary
+https://www.youtube.com/watch?v=4t1K66dMhWk&ab_channel=JonathanBlow
+
+It's very common to have references to other entities, hard to know which is called where and when do you need to check for null - so rust borrow checker would be helpful. You need a compiler layer essentially and either you use a framework or you manage it yourself

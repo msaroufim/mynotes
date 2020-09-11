@@ -236,3 +236,22 @@ Job system helps divide up work over multiple cores
 2. Limited documentation and more features coming soon
 3. Not every game needs it, we don't need dwarf fortress amounts of data
 4. Lots of manual controls and references (closer bookkeeping similart to C won't be beneficial)
+
+
+
+# Unity DOTS explained
+https://www.youtube.com/watch?v=Z9-WkwdDoNY&ab_channel=CodeMonkey
+
+For code samples this is the best video
+
+Job system manages assigning threads to different cores and deals with complexities of race conditions for you
+
+Entities refer to component instances
+Components hold data
+Systems process data
+
+Nice minimal example here https://youtu.be/Z9-WkwdDoNY?t=175
+
+https://youtu.be/Z9-WkwdDoNY
+
+Burst compiler system turns job system into fast machine code

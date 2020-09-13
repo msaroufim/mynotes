@@ -11,7 +11,15 @@
     * Check out Game Programming patterns data locality book
     * ECS helps you improve data locality better which also makes garbage collection easier
     * There was a point about CPUs improving a lot relative to RAM that I didn't entirely get
+# Jonathan blow commentary
+https://www.youtube.com/watch?v=4t1K66dMhWk&ab_channel=JonathanBlow
 
+It's very common to have references to other entities, hard to know which is called where and when do you need to check for null - so rust borrow checker would be helpful. You need a compiler layer essentially and either you use a framework or you manage it yourself
+
+A book on ECS
+https://twitter.com/herberticus/status/1184568452641624073?s=20
+
+ECS in Rust talk https://www.youtube.com/watch?v=aKLntZcp27M
 * Nice more complete list of references https://github.com/dbartolini/data-oriented-design
 
 
@@ -260,3 +268,8 @@ Burst compiler system turns job system into fast machine code
 https://www.youtube.com/watch?v=4t1K66dMhWk&ab_channel=JonathanBlow
 
 It's very common to have references to other entities, hard to know which is called where and when do you need to check for null - so rust borrow checker would be helpful. You need a compiler layer essentially and either you use a framework or you manage it yourself
+
+A book on ECS
+https://twitter.com/herberticus/status/1184568452641624073?s=20
+
+ECS in Rust talk https://www.youtube.com/watch?v=aKLntZcp27M

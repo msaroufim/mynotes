@@ -14,3 +14,7 @@
 https://docs.fast.ai/
 
 Use conda for virtual env setups and Google collab for the easiest experience
+
+## Some todos
+* https://www.volkerschatz.com/science/float.html
+* Go over the LSTM example again and read it thorougly

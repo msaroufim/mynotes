@@ -1,4 +1,5 @@
-A paper summarizing the IPU microarchitecture and how it is different Ampere GPUs. The summary should include a detailed analysis of the following areas between the two architectures:
+
+# GPU 
 
 High-level architecture comparison
 IPU Tile VS. GPU Streaming Multiprocessors
@@ -53,3 +54,4 @@ https://stackoverflow.com/questions/3519598/streaming-multiprocessors-blocks-and
 NVIDIA GPU Microbenchmarks (VOLTA): https://arxiv.org/pdf/1804.06826.pdf
 Programming Tensor Cores: https://developer.nvidia.com/blog/programming-tensor-cores-cuda-9/
 https://blog.samtec.com/post/understanding-nrz-and-pam4-signaling/#:~:text=What%20is%20PAM4%3F,2%20bits%20of%20logic%20information.
+https://www.anandtech.com/show/12673/titan-v-deep-learning-deep-dive/3#:~:text=To%20recap%2C%20the%20tensor%20core,4%20FP16%20or%20FP32%20matrix.

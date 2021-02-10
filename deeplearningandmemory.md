@@ -37,7 +37,6 @@ CPU: narrow SIMD, low meomory bandwidth, high memory
 
 ## Parallelism vs synchronization
 * https://stackoverflow.com/questions/4844637/what-is-the-difference-between-concurrency-parallelism-and-asynchronous-methods#:~:text=Parallelism%20is%20a%20specific%20kind,Synchronous%20vs.&text=In%20sync%2C%20you%20write%20code,order%2C%20from%20top%20to%20bottom.
-
 * https://indico.fnal.gov/event/23974/contributions/74722/attachments/46621/55992/Farrell_ExaTrkX_scaling.pdf
 
 ## How to map to MIMD

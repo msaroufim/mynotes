@@ -47,6 +47,10 @@ GPUs also support hardware accelerated video decoding and image encoding for fas
 
 GPUs have automatic error detection when overclocking
 
+Look into GEMM hierarchy: blocked GEMM, thread block tile, warp tile, thread tile
+
+Tensor cores operate over several 4x4 submatrices to multiply an entire row in a single clock cycle (look at how the IPU algorithm differs)
+
 References
 https://www.nvidia.com/content/PDF/nvidia-ampere-ga-102-gpu-architecture-whitepaper-v2.pdf
 Tensor cores: https://www.youtube.com/watch?v=xjjN9q2ym6s
@@ -55,3 +59,4 @@ NVIDIA GPU Microbenchmarks (VOLTA): https://arxiv.org/pdf/1804.06826.pdf
 Programming Tensor Cores: https://developer.nvidia.com/blog/programming-tensor-cores-cuda-9/
 https://blog.samtec.com/post/understanding-nrz-and-pam4-signaling/#:~:text=What%20is%20PAM4%3F,2%20bits%20of%20logic%20information.
 https://www.anandtech.com/show/12673/titan-v-deep-learning-deep-dive/3#:~:text=To%20recap%2C%20the%20tensor%20core,4%20FP16%20or%20FP32%20matrix.
+GPU have their own large ISA: http://developer.amd.com/wordpress/media/2012/10/R700-Family_Instruction_Set_Architecture.pdf

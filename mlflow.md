@@ -130,6 +130,18 @@ Make sure to setup kuubectl
 
 https://github.com/kubeflow/pytorch-operator/tree/master/examples/mnist
 
+Make files have function names https://github.com/kubeflow/pytorch-operator/blob/master/examples/mnist/Makefile
+
+``
+push : build # don't push until build is complete
+```
+
+The model is actually ran using this line in the docker file which for some reason uses MPI
+
+```
+https://github.com/kubeflow/pytorch-operator/blob/master/examples/mnist/Dockerfile-mpi#L52
+```
+
 ## Torchserve handlers
 Torchserve handler read more about it https://github.com/pytorch/serve/blob/38eed4703664175160304b9e9880fa40d8481f11/ts/torch_handler/base_handler.py#L17
 

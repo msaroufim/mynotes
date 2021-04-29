@@ -31,6 +31,8 @@ https://grafana.com/ - dashboards on top of prometheus
 But in general notebook story for this stuff isn't great, need to use GCP for Kubeflow or AWS for airflow for ideal user experience
 
 ## Kubernetes in action book summary
+
+### Intro
 We used to have seperate ops teams but now it's the same skillset
 Managing hundreds of microservices helps you scale easier but much harder to manage manually
 
@@ -44,6 +46,81 @@ Takes care of running different microapps concurrently on the same machine to in
 
 Master nodes Control plane components which control the cluster which worker nodes in workload plane where apps are run
 
+etcd -> distributed data store
+scheduler -> which worker nodes to run
+controller -> create objects
+
+Kube proxy responsible for managing IP addresses
+
+Using Kubernetes is much easier than managing it - options are GKE (google kubernetes engine), AKS, AEKS (elastic kubernetes)
+
+Don't use Kubernetes if you have less than 20 microservices
+
+### Containers
+VMs need their own guest OS which causes lots of waste at scale but with containers OS needs to handle virtualization in a way that it doesn't need to do with a VM
+
+On containers everything runs on the same Kernel but containers isolate them from each other
+
+Containers use copy on write on the underlyign image to avoid issues with shared data
+https://en.wikipedia.org/wiki/Copy-on-write
+
+Containers are create from an image which can be pushed and pulled from an image registry for others to use
+
+```
+docker run --name kubia-container -p 1234:8080 -d kubia
+```
+
+* -p local port : remote port
+* -d detached without console
+
+Run shell commands like this
+
+```
+$ docker exec -it kubia-container bash
+```
+
+Set number of cpu cores usable
+
+```
+$ docker run --cpuset-cpus="1,2" ...
+```
+
+To see if all containers have sufficient resources
+
+```
+$ docker stats
+```
+
+To make sure that network is not isolated
+
+The --net, --ipc, --uts and --pid flags make the container use the host’s namespaces
+instead of being sandboxed, and the --privileged and --security-opt flags give the
+container unrestricted access to all sys-calls
+
+Get all information about nodes (kubertenes control)
+
+```
+$ kubectl get nodes
+
+```
+
+Pods are the smallest unit and not containers 
+
+```
+$ kubectl get pods
+```
+
+Create a deployment then expose the deployment. Exposing an object using `expose` so deployment is available to the internet
+
+Isolation achieved via cgroups to cap max number of resources each container can have
+
+scaling is as easy as
+
+```
+$ kubectl scale deployment kubia --replicas=3
+```
+
+Something about the kubeflow object manifest - stoppoed understanding what's going on at chapter 4
 
 
 ## Torchserve handlers

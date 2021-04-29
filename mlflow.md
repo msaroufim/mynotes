@@ -122,6 +122,13 @@ $ kubectl scale deployment kubia --replicas=3
 
 Something about the kubeflow object manifest - stoppoed understanding what's going on at chapter 4
 
+## Running Pytorch in Kubeflow
+https://www.kubeflow.org/docs/components/training/pytorch/
+
+Install the Pytorch operator
+Make sure to setup kuubectl
+
+https://github.com/kubeflow/pytorch-operator/tree/master/examples/mnist
 
 ## Torchserve handlers
 Torchserve handler read more about it https://github.com/pytorch/serve/blob/38eed4703664175160304b9e9880fa40d8481f11/ts/torch_handler/base_handler.py#L17

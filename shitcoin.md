@@ -18,6 +18,8 @@ Blockstream also has projects for syncing nodes over satellite, lighting and a b
 # ETH
 Decentralized contracts, proof of stake
 Summary of ERC: https://eips.ethereum.org/erc
+Price to put data on Blockchain: https://ethereum.stackexchange.com/questions/872/what-is-the-cost-to-store-1kb-10kb-100kb-worth-of-data-into-the-ethereum-block (kinda crazy)
+Solidity is a Javascript dialect where I can store data either in memory or on the blockchain
 
 # Tether
 Bitcoin bank keeping 1T to 1USD value backed by cash, and cash equivalents like loans (not clear what requirements are)

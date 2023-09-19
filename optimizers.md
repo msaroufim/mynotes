@@ -11,7 +11,9 @@ Ergo adam which has fairly standard hyperparams which don't really change
 
 The intuition behind close to 1 beta_1 and beta_2 is that the past will matter more, then there's an \epsilon to remove 0 values from the formula, debiasing (see trick below), a learning rate (standard stuff)
 
-The main problem with ADAM is it 3x's your model size. It's a first order technique in that it only depends on the average of past gradients and specifically their first moment (mean) and second moment (variance)
+The main problem with ADAM is it 3x's your model size. Other techniques like adafactor are similar but don't have 2 extra paramters per gradient but instead have a single value for an entire row an another for a column so it's O(m+n) instead of O(2m^2)
+
+It's a first order technique in that it only depends on the average of past gradients and specifically their first moment (mean) and second moment (variance)
 
 The formula has a couple of tricks but the notable ones are
 * Values are init'd close to 0 so they debias them away from 0 by doing value / (1 - \beta) where beta is is close to 1

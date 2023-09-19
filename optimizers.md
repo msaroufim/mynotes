@@ -11,7 +11,7 @@ Ergo adam which has fairly standard hyperparams which don't really change
 
 The intuition behind close to 1 beta_1 and beta_2 is that the past will matter more, then there's an \epsilon to remove 0 values from the formula, debiasing (see trick below), a learning rate (standard stuff)
 
-The main problem with ADAM is it 3x's your model size. Other techniques like adafactor are similar but don't have 2 extra paramters per gradient but instead have a single value for an entire row an another for a column so it's O(m+n) instead of O(2m^2)
+The main problem with ADAM is it 3x's your model size. Other techniques like adafactor are similar but don't have 2 extra parameters per gradient but instead have a single value for an entire row and another for a column of the moving averages so it's O(m+n) instead of O(2m^2) https://arxiv.org/abs/1804.04235
 
 It's a first order technique in that it only depends on the average of past gradients and specifically their first moment (mean) and second moment (variance)
 
@@ -58,7 +58,6 @@ parameters = compute_and_update_gradients_for_all(paramters, learning rate)
 ```
 
 fused is great to reduce memory bandwidth, foreach seems faster but increases the risk of OOMs, there are probably sharded versions of foreach we could use
-```
 
 RMSprop and adagrad both don't have bias correction so the steps can often be too big and they will diverge
 

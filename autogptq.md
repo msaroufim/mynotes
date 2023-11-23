@@ -125,3 +125,21 @@ So conceptually can get Triton autotuner to work better on my 4090 for best resu
 matmul_4 implemented here https://github.com/fpgaminer/GPTQ-triton/blob/main/src/gptq_triton/quant_linear.py
 
 
+## Academic notes
+
+Excellent youtube series by Prof Song Han https://www.youtube.com/watch?v=TSc_BibWRhM
+
+* Smoothquant W8A8: insight is that quantization activation is hard because its very sensitive to outliers and magnitudes differ a lot more so idea is to move some of that variance to weights. Scaling factor can be applied offline to weights and online for activations. Most of the network is quantized except for typically the normalization and bias layers https://www.youtube.com/watch?v=U0yvqjdMfr0 so any API needs to be able to offer this kind of flexibility around which types of layers are quantized or which specific keys from the state dict are quantized
+
+We can have several strategies like potentially quantizing earlier layers more because the features are more raw and make sure that the output isn't. So layer wise quant is a stragey and can apply it sequentially
+
+
+https://www.youtube.com/watch?v=3dYLj9vjfA0&t=254s
+
+* AWQ: W4A16 in the case of bs=1 inference where we really care about memory bandwidth we lose a lot of perplexity at w4 even with group quant (giving the same scaling factor to a X number of elements in a layer) but the insight that we can keep 1% of weights unquantized and keep most of the perplexity. So how do you find the important 1%? You can look at weight distribution similarily to sparsity but this doesnt work so instead we look at activation distribution and our goal is to preserve outlier channels. Can do a similar trick to smoothquant to multiply weight by 2 and divide activation by 2 (or more generally s) and can keep everything the same
+
+So how do we automatically find this multiplier? We can do a grid search or learn it using gradient descent
+
+The baseline for many of these techniques is round to the nearest
+
+

@@ -146,4 +146,6 @@ In flash attention they claim 20x memory speedup
 
 So memory conscious stack is: adafactor, flash attention, qlora, zero offload, infinity and 3, small batch size, mixed precision training, quantization, gradient accumulation, gradient checkpointing. No surprise people want to program using configs, we give people a textbook and ask them to assemble a car, selective layer freezing, sparse training, check which activation functions work over which https://huggingface.co/blog/ram-efficient-pytorch-fsdp and maybe the car will blow up not clear
 
+Speed is actually a simpler problem: fusions, overhead reduction and a few custom cuda/triton kernels here and there
+
 

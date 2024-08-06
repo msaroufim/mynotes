@@ -72,3 +72,7 @@ Profiling for auto model, data, pipeline parallelism. See the survey in local up
 https://github.com/NVIDIA/Megatron-LM
 
 Model parallelism MegatronLM style - looks like it splits single layers into multiple machines and pipelines them? Most techniques are towards keeping GPUs compute bound and reducing communication overhead
+
+## Overlap
+
+Overlap gradient D2H (GPU -> CPU) copies with backward and H2D (CPU -> GPU) copies with forward by copying data one layer at a time as opposed to waiting for the whole set

@@ -9,6 +9,8 @@ This has a nice explanation of an optimized GEMV algorithm https://github.com/Br
 Samea author has more work that shows up here https://github.com/Bruce-Lee-LY/cuda_hgemm with common optimizations that matter
 
 `gemv_A16fWnO16f_int32packing`  fp16 x n-bit as 32-bit packed, mixed fp16 accumulation. Main optimizations seem to be warp reductions, caching
+
+
 ## Marlin
 
 https://github.com/IST-DASLab/marlin

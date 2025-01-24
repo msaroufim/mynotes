@@ -26,7 +26,7 @@ How do you go about supporting new features in GPUs, how much time do you spend
 
 Why MLIR?
 
-TMA transforms - tile your input
+TMA transforms - tile your input once and share it everywhere
 
 You've worked on a lot of languages DEX, IIC Hopper is your lowest level one yet
 
@@ -36,5 +36,63 @@ What about blackwell?
 
 Take a step back what did you feel existing languages for GPUs were missing?
 
+Why expose striding, seems like you also loved this pattern in pytorch
+
 
 # Flash Infer
+
+Sparse and dense attention kernels
+Cascade attention for hierarchitcal kv cache
+Bring your own attention variations
+customizable attention
+Have a flag to to aot compile kernels
+codebase is 60% cuda
+
+Cascade inference decouples attention of shared prefix and unique suffixes , dispatch attention on different kv subsets (still dont fully understand the trick)
+
+Fused kernels for sampling
+
+Cascade and activation implemented in Triton
+* Fused silu and multiplication
+* Merge state (cascade for dividing and conquering kv cache)
+
+Fp8 support
+
+What's next? Mx support
+
+Rest in CUDA
+
+A lot of functions are compiled
+
+Quantization sueus numpy packed bit array
+
+Sets which args are mutated and each arg has its own unique name
+
+I noticed for example in your aot_build_utils you have a lot of utilities that manipulate strings, could you talk a bit more about this.
+
+Can you talk more about your JIT vs AOT machinery?  nvcc vs nvrtc
+
+FLexible attention patterns, is the idea to metaprogram again?
+
+Header only libraries are more convenient since don't need to build and link and you can uses One Definition Rule (ODR) as a heuristics when authoring such a library
+
+
+```
+// can be header only:
+class Calculator {
+    inline static int callCount = 0;
+
+    public:
+        inline int add(int a, int b) {
+            callCount++;
+            return a + b;
+        }
+};
+
+// cannot be header only:
+class Database {
+    static int connections;  // needs definition in .cpp
+    void connect();         // needs implementation in .cpp
+    FILE* file;            // requires linking against stdio
+};
+```

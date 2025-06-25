@@ -6,18 +6,23 @@
 
 
 > “Is the cubin created dynamically?”
+
 Yes. Inductor generates the .cu, then calls nvcc/clang –cubin during the graph-compile phase. That happens once per unique kernel variant.
 
 > “Does StaticCudaLauncher get built at runtime?”
+
 No. The launcher is already inside the shipped PyTorch .so. Only the tiny *_reg.cpp stubs are compiled/linked (quickly) to tell the launcher about new hashes.
 
 > “What happens during execution?”
+
 The first time a kernel is invoked, the launcher loads its cubin (cuModuleLoad) and caches the CUfunction; subsequent calls are just cuLaunchKernelEx—μs-level overhead.
 
 > “Why not just many .sos?”
+
 Each extra .so would add link + dlopen latency (~3 ms) and 50-80 kB of ELF bloat. With thousands of kernels that explodes runtime and wheel size. Cubins are 4-8 kB blobs with no host ABI baggage.
 
 > “So StaticCudaLauncher is like NVRTC?”
+
 Not a compiler at all, it's a dynamic loader for prebuilt cubins, complementary to nvcc rather than an alternative to NVRTC.
 
 Inductor compiles each new kernel to a lightweight .cubin once; StaticCudaLauncher—already in PyTorch—simply hot-loads those cubins and fires them, giving you nvcc-quality kernels with NVRTC-like flexibility but near-zero launch overhead.

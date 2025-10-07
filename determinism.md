@@ -69,3 +69,27 @@ https://docs.nvidia.com/cuda/floating-point/index.html
 ## Deterministic checkpointing 
 
 https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=9796431
+
+This paper mostly seems to focus on sources of RNG and fixes a different seed per example
+
+Otherwise for checkpoint replay insatead of sa ving the state of the data loader they replay it up to how many epochs or samples were done so far and then recover.  (This seems costly)
+
+Idk why this paper focuses so much on adversarial attacks
+
+## Survey on. reproducibility
+A lot of people seem to care https://arxiv.org/pdf/1511.04217 but otherwise didn't much that was new from this paper. It's also unclear if some people meant determinism
+
+This isn't a survey per se, it's actually more of a questionnaire
+
+## What every CS should know about floats
+A classic https://www.itu.dk/~sestoft/bachelor/IEEE754_article.pdf
+
+## NVIDIA Odds and ends
+https://docs.nvidia.com/deeplearning/cudnn/backend/latest/developer/misc.html 
+
+## Cudnn paper
+https://arxiv.org/abs/1410.0759
+
+## NVIDIA float compliance 
+https://docs.nvidia.com/cuda/floating-point/index.html
+

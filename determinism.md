@@ -84,12 +84,92 @@ This isn't a survey per se, it's actually more of a questionnaire
 ## What every CS should know about floats
 A classic https://www.itu.dk/~sestoft/bachelor/IEEE754_article.pdf
 
+Has some
+
 ## NVIDIA Odds and ends
 https://docs.nvidia.com/deeplearning/cudnn/backend/latest/developer/misc.html 
+
+This doc page has a bunch of stuff but most importantly has examples of non determinsitc ops that require tomics. Most important ones are 
+1. Convolution and pooling related: With max pooling you go from 1 output value to N input values, getting the right ones requires atomics
+2. CTC_Loss: Which is a forgiving loss function used to map variable length input and output sequences. This requires atomics because multiple threads are computing gradients for different alignment paths that share nodes in the computation
 
 ## Cudnn paper
 https://arxiv.org/abs/1410.0759
 
+OG paper just had
+1. forward and backward for convolution
+2. Sigmoid, rectified linear, hyerbolic tangent
+3. numerically stable softmax
+4. maxa pooling
+5. Optional broadcasting
+
+They show how you can lower a convolution into a multiplciocation 
+
+They also show a caffe integration
+
+It's a cool paper but they don't actually discuss reproducibility
+
+
 ## NVIDIA float compliance 
 https://docs.nvidia.com/cuda/floating-point/index.html
+
+ IEEE 754 standard in 2008 also introduced FMA, also introduces rules for rounding rules
+
+FMA basically makes it so we only need a single rounding step and that is more correct then introducing 2 rounding steps
+
+`rn(X * Y + Z)` instead of `rn(rn(X*Y) + Z)` 
+
+Rounding always happens when either
+1. we're converting from one dtype to another
+2. dealing with excess precision such as `+, -, x, /, FMA`
+
+```
+Standard multiply-then-add:
+float32 × float32 → float32 (rounds to 24-bit mantissa)
+float32 + float32 → float32 (rounds again)
+= 2 rounding errors
+
+FMA:
+float32 × float32 → internal 48-bit exact product (no rounding)
+48-bit product + float32 → float32 (only 1 rounding)
+= 1 rounding error
+``` 
+
+Naively you'd think FMA would be slower because of the intermediate overhead but it's a single instruction with dedicated hardware units. It does cause reproducibility issues if the increased precision is not desirable and makes it so depending on which compiler flags we enable the results might not be reproducible
+
+Machine differences could also cause issues. Unit tests that pass on CI (no FMA) fail on production (has FMA)
+
+Dot product can be computed using FMA - 
+
+for i in range(1,, 4)
+  t = rn(a_i x b_i + t)
+return t
+
+There are 4 rounding modes
+1. Round to nearest, ties to even
+2. round to zero (bankers rounding)
+3. round to floor
+4. round to ceil
+
+Bankers rounding assumes digits are random but if someone can exploit them in an attack called salami slicing
+
+For instance instead of keeping small values around which need special handling for CPU we can flush denormals to just round them to 0
+
+GPU arithmetic units have both fast passes that break IEEE compliance and slow ones (~10x slower) - so compiler choices can affect hardware unit choice which in turn affects reproducibility
+
+In x86 the rounding choice is global but in cuda it's basically per instruction so you'd have something like `__fadd_rz(x,y)` round to zero addition this simplifies things like not needing trap handler or status register
+
+You can choose which rounding mode to use if you just call the low level instrinsic otherwise the compiler will decide for you. in practice it just uses round to nearest most of the time
+
+Since NVIDIA makes different choices on how their floats work then there is no hope to have reproducubility with CPU. In addition, CPU vs GPU will have different parallelism strategies that will also affect numerics (CPUs have much fewer threads)
+
+they also recommend computing results in higher precision 
+
+NVIDIA recommends that people porting their code study numerics and not just assume differences in results mean a bug
+
+when doing fma rounding we use float64 to add float32 because we can use extra bits t o
+1. determine rounding
+2. handle alignment shifts for different exponents
+3. safety margin
+
 

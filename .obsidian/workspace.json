@@ -20,6 +20,16 @@
               "icon": "lucide-file",
               "title": "determinism"
             }
+          },
+          {
+            "id": "f8ef7be65393f80b",
+            "type": "leaf",
+            "state": {
+              "type": "empty",
+              "state": {},
+              "icon": "lucide-file",
+              "title": "New tab"
+            }
           }
         ]
       }
@@ -78,7 +88,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 200,
+    "collapsed": true
   },
   "right": {
     "id": "c110e10027ba1947",
@@ -171,9 +182,9 @@
   },
   "active": "f161382bb04d93bc",
   "lastOpenFiles": [
+    "determinism.md",
     "diff-zoo-julia.md",
     "DeepStack.md",
-    "determinism.md",
     "dqnhyperparams.PNG",
     "torchtitan.md",
     "static_cuda_launcher.md",

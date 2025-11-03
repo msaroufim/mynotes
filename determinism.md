@@ -200,3 +200,13 @@ TF32 (TensorFloat-32) \u2014 NVIDIA Ampere+
 - Storage: tensors remain FP32 in memory
 - Use: drop-in speedup for FP32 models without changing dtypes
 - Gotcha: slightly less precise multiplies than FP32
+
+FP4 is well explained here 
+https://developer.nvidia.com/blog/introducing-nvfp4-for-efficient-and-accurate-low-precision-inference/
+
+In particular
+
+Feature	FP4 (E2M1)	MXFP4 	NVFP4 
+- FP4 (E2M1): 4 bits (1 sign, 2 exponent, 1 mantissa) plus software scaling factor
+- 4 bits (1 sign, 2 exponent, 1 mantissa) plus 1 shared power-of-two scale per 32 value block
+- 4 bits (1 sign, 2 exponent, 1 mantissa) plus 1 shared FP8 scale per 16 value block

@@ -208,5 +208,29 @@ In particular
 
 Feature	FP4 (E2M1)	MXFP4 	NVFP4 
 - FP4 (E2M1): 4 bits (1 sign, 2 exponent, 1 mantissa) plus software scaling factor
-- 4 bits (1 sign, 2 exponent, 1 mantissa) plus 1 shared power-of-two scale per 32 value block
-- 4 bits (1 sign, 2 exponent, 1 mantissa) plus 1 shared FP8 scale per 16 value block
+- MXFP4: 4 bits (1 sign, 2 exponent, 1 mantissa) plus 1 shared power-of-two scale per 32 value block
+- NVFP4: 4 bits (1 sign, 2 exponent, 1 mantissa) plus 1 shared FP8 scale per 16 value block
+
+
+## Interesting threads from twitter
+
+https://x.com/iannuttall/status/1984531393062240611
+
+Codex had a regression with numerics on older hardware so just dropped it since it made their evals bad
+
+https://huggingface.co/spaces/HuggingFaceTB/smol-training-playbook#scaling-surprises
+
+Some interesting happenings
+- Throughput would drop when a node died because data loader would lose its local data
+- Random access data loader causes fewer loss spikes because one bad example could tank the gradients of one batch
+- Sample packing also likely changes numerics but can improve efficiency, it makes the gradient of each example less clean
+
+Defeating the LLM training-inference mismatch via fp16
+https://arxiv.org/abs/2510.26788
+
+RL is inherently unstable, existing solutions mostly rely on patches to importance sampling because everything is inherently off policy
+
+BF16 causes large errors while fp16 is more precise (this matters less for pretraining). This paper is mostly vibes based in particular they fixed the instability with fp16 across VLLM and FSDP but it's not clear what the root cause beyond some handwavy arguments of fp16 being more precise
+
+
+

@@ -173,3 +173,30 @@ when doing fma rounding we use float64 to add float32 because we can use extra b
 3. safety margin
 
 
+
+## Float semantics
+
+FP32 (float32)
+- What: 1 sign, 8-bit exponent, 23-bit mantissa (full precision/range baseline)
+- Storage/compute: stored as FP32; matmuls/conv run as FP32 unless TF32 enabled
+- Accumulation: FP32
+
+FP16 (IEEE half, float16)
+- What: 1 sign, 5-bit exponent, 10-bit mantissa (narrow range, decent precision)
+- Storage/compute: cast or autocast to FP16
+- Accumulation: usually FP32 on Tensor Cores
+- Use: fast but finicky for training; needs loss scaling
+- Gotcha: under/overflow due to small exponent
+
+BF16 (bfloat16)
+- What: 1 sign, 8-bit exponent, 7-bit mantissa (FP32-like range, coarser precision)
+- Storage/compute: cast or autocast to bfloat16
+- Accumulation: FP32 on modern GPUs/TPUs
+- Use: training default on modern hardware; usually no loss scaling
+- Gotcha: slightly noisier than FP16/TF32 per multiply due to 7-bit mantissa
+
+TF32 (TensorFloat-32) \u2014 NVIDIA Ampere+
+- What: COMPUTE MODE for FP32 matmul/conv: inputs rounded to 8e/10m, accumulate FP32, output FP32
+- Storage: tensors remain FP32 in memory
+- Use: drop-in speedup for FP32 models without changing dtypes
+- Gotcha: slightly less precise multiplies than FP32

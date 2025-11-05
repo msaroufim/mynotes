@@ -173,3 +173,92 @@ when doing fma rounding we use float64 to add float32 because we can use extra b
 3. safety margin
 
 
+
+## siboehm articles
+
+https://siboehm.com/articles/23/Inlining-FMA-FP-consistency
+
+Inlining can affect numerics, even without FMA or fast math shenanigans
+
+```cpp
+float foo(float x) { return x * x + x; }
+float result = foo(a + b);
+```
+
+On x86 intermediates will be in 80 bit registered whereas if we're calling another function then we have to cast it down to 32 or 64 bit numbers
+
+Compiler could also reorder things differently or have some compiler pass that it runs like dead code elimination. Inlining can typically help the compiler do more because optimizations are at the function boundary.
+
+
+Without FMA: `RoundToFloat32(RoundToFloat32(a * b) + c)`
+With FMA: `RoundToFloat32((a * b) + c)`
+
+IEEE standard does not specify what's the correct number here
+
+It's possible in some languages that you have to explicitly call an FMA function
+
+What happens if you call fma on harwdware that doesnt support it
+
+Whether an FMA instruction can be fused into something else can also affect numerics
+
+Some compilers will have FMA mean: run FMA only if it's faster otherwise default to without FMA semantics
+
+
+https://yosefk.com/blog/consistency-how-to-defeat-the-purpose-of-ieee-floating-point.html
+
+
+IEEE is fine for most people except those few nasty edge cases that we all need to think about
+
+> This implies a general way of solving this sort of problem: find what the optimizer does by looking at the generated assembly, and do it yourself in the source code. This almost certainly guarantees that debug and release will work the same
+
+Another approach is to get in the way of the compiler and force indirections that make unintended optimizations hard. 
+
+In other cases a lot of compilers will have flags to disable specific optimizations by default
+
+ IEEE FP philosophy – intermediate results should be as precise as possible; - this goes against what some users want, see for example the anthropic blog postg https://www.anthropic.com/engineering/a-postmortem-of-three-recent-issues
+
+ What's interesting is that if youre using debug builds you wouldn't upcast to 80 bit registers lol 
+
+https://nhigham.com/2018/12/03/half-precision-arithmetic-fp16-versus-bfloat16/
+
+bfloat16 can make certain series converge when they should diverge lol
+
+https://nhigham.com/2015/10/08/the-rise-of-mixed-precision-arithmetic/
+
+Comparing to higher precision baseline is often good enough
+
+Unstable low bit algorithms can be made stable by just using higher precision in a few places and there's a history of this pre deep learning https://epubs.siam.org/doi/10.1137/130911561
+
+IEEE said that fp16 is a storage only dtype not compute one
+
+Amazing author but none of his books seem available online anymore https://www.youtube.com/watch?v=L_lgdbYSGxY
+
+Floats are cursed blog
+
+
+https://www.siam.org/publications/siam-news/articles/a-multiprecision-world
+
+There are lots of references to rounding error analysis which should give a bound on the expected error of a specific algorithim example  The usual rounding error bound for the inner product of two vecor is nu (n is size of vector and u is the unit roundoff)
+
+For FP32: ε ≈ 2^(-24) ≈ 5.96×10^(-8)
+For FP16: ε ≈ 2^(-11) ≈ 4.88×10^(-4)
+
+|fl(x^T y) - x^T y| ≤ nε|x|^T|y| + O(ε²)
+relative error ≤ nε · (|x|^T|y|) / |x^T y|
+
+https://claude.ai/share/c35f5845-0033-4508-8cd7-75302927d105
+
+
+More things to read
+
+https://randomascii.wordpress.com/2013/07/16/floating-point-determinism/
+https://fabiensanglard.net/floating_point_visually_explained/
+https://nhigham.com/2020/05/04/what-is-floating-point-arithmetic/
+
+My hobby: injecting code into other processes and changing the floating-point rounding mode on some threads
+
+
+Pitfalls of verifying floats https://arxiv.org/abs/cs/0701192
+
+On floating point determinism https://www.yosoygames.com.ar/wp/2013/07/on-floating-point-determinism/
+

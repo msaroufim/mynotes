@@ -254,6 +254,7 @@ More things to read
 https://randomascii.wordpress.com/2013/07/16/floating-point-determinism/
 https://fabiensanglard.net/floating_point_visually_explained/
 https://nhigham.com/2020/05/04/what-is-floating-point-arithmetic/
+https://elanapearl.github.io/blog/2025/the-bug-that-taught-me-pytorch/?t=1
 
 My hobby: injecting code into other processes and changing the floating-point rounding mode on some threads
 

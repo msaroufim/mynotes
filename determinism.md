@@ -261,4 +261,63 @@ My hobby: injecting code into other processes and changing the floating-point ro
 Pitfalls of verifying floats https://arxiv.org/abs/cs/0701192
 
 On floating point determinism https://www.yosoygames.com.ar/wp/2013/07/on-floating-point-determinism/
+## Float semantics
+
+FP32 (float32)
+- What: 1 sign, 8-bit exponent, 23-bit mantissa (full precision/range baseline)
+- Storage/compute: stored as FP32; matmuls/conv run as FP32 unless TF32 enabled
+- Accumulation: FP32
+
+FP16 (IEEE half, float16)
+- What: 1 sign, 5-bit exponent, 10-bit mantissa (narrow range, decent precision)
+- Storage/compute: cast or autocast to FP16
+- Accumulation: usually FP32 on Tensor Cores
+- Use: fast but finicky for training; needs loss scaling
+- Gotcha: under/overflow due to small exponent
+
+BF16 (bfloat16)
+- What: 1 sign, 8-bit exponent, 7-bit mantissa (FP32-like range, coarser precision)
+- Storage/compute: cast or autocast to bfloat16
+- Accumulation: FP32 on modern GPUs/TPUs
+- Use: training default on modern hardware; usually no loss scaling
+- Gotcha: slightly noisier than FP16/TF32 per multiply due to 7-bit mantissa
+
+TF32 (TensorFloat-32) \u2014 NVIDIA Ampere+
+- What: COMPUTE MODE for FP32 matmul/conv: inputs rounded to 8e/10m, accumulate FP32, output FP32
+- Storage: tensors remain FP32 in memory
+- Use: drop-in speedup for FP32 models without changing dtypes
+- Gotcha: slightly less precise multiplies than FP32
+
+FP4 is well explained here 
+https://developer.nvidia.com/blog/introducing-nvfp4-for-efficient-and-accurate-low-precision-inference/
+
+In particular
+
+Feature	FP4 (E2M1)	MXFP4 	NVFP4 
+- FP4 (E2M1): 4 bits (1 sign, 2 exponent, 1 mantissa) plus software scaling factor
+- MXFP4: 4 bits (1 sign, 2 exponent, 1 mantissa) plus 1 shared power-of-two scale per 32 value block
+- NVFP4: 4 bits (1 sign, 2 exponent, 1 mantissa) plus 1 shared FP8 scale per 16 value block
+
+
+## Interesting threads from twitter
+
+https://x.com/iannuttall/status/1984531393062240611
+
+Codex had a regression with numerics on older hardware so just dropped it since it made their evals bad
+
+https://huggingface.co/spaces/HuggingFaceTB/smol-training-playbook#scaling-surprises
+
+Some interesting happenings
+- Throughput would drop when a node died because data loader would lose its local data
+- Random access data loader causes fewer loss spikes because one bad example could tank the gradients of one batch
+- Sample packing also likely changes numerics but can improve efficiency, it makes the gradient of each example less clean
+
+Defeating the LLM training-inference mismatch via fp16
+https://arxiv.org/abs/2510.26788
+
+RL is inherently unstable, existing solutions mostly rely on patches to importance sampling because everything is inherently off policy
+
+BF16 causes large errors while fp16 is more precise (this matters less for pretraining). This paper is mostly vibes based in particular they fixed the instability with fp16 across VLLM and FSDP but it's not clear what the root cause beyond some handwavy arguments of fp16 being more precise
+
+
 

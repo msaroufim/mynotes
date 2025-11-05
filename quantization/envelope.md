@@ -1,2 +1,6 @@
-Largest number you can represent with n exponent bits `2^2^(n -1)`
-Precision you get for each mantissa bit is 0.3 so you can tell numbers if they're `n * 0.3` apart from each other
+## Impact of adding 1 more bit to the mantissa or exponent
+
+* Each exponent bit roughly squares your numeric range (max value goes from ~2^(2^k) to ~2^(2^(k+1)))
+* Each mantissa bit gives you 0.3 more decimal digits of precision (numbers need to differ by ~1/2^m to be distinguishable)
+
+Exponent bit tends to give you fairly massive range but mantissa bits are more expensive and only give 0.3 decimal digits of precision

@@ -336,12 +336,16 @@ the IEEE standard does not guarantee that the same program will deliver identica
 * Compiler differences on different HW architectures and compiler flags
 
 
-TODO
-* Comparisons are tricky https://randomascii.wordpress.com/2012/02/25/comparing-floating-point-numbers-2012-edition/
-* Pitfalls of verifying floats https://arxiv.org/abs/cs/0701192
 
 Table maker dilemma https://perso.ens-lyon.fr/jean-michel.muller/Intro-to-TMD.htm
 
 Some functions need exact representaitons but we can't do that on computers instead we try to predict if after we apply rounding we'd get identical results to the real value
 
 So what we can is for a given function brute force and find the most egregious examples where our predictions are completely off and by how many digits, that way we know then if we have that many digits of precisions or more then our results are exact
+
+
+
+TODO
+* Comparisons are tricky https://randomascii.wordpress.com/2012/02/25/comparing-floating-point-numbers-2012-edition/
+* Pitfalls of verifying floats https://arxiv.org/abs/cs/0701192
+* https://people.eecs.berkeley.edu/~wkahan/ieee754status/754story.html (Story of old man of)

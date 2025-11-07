@@ -322,3 +322,26 @@ BF16 causes large errors while fp16 is more precise (this matters less for pretr
 
 
 
+https://randomascii.wordpress.com/2013/07/16/floating-point-determinism/
+
+the IEEE standard does not guarantee that the same program will deliver identical results on all conforming systems.” And, the C/C++ standards don’t actually mandate IEEE floating-point math. (LOL)
+
+* denormals are often disabled by default
+* settings are per thread so other rogue processes can overwrite your global settings
+* Intermediate precsisions are not determined by the standard
+* square roots have vendor specific algorithms that might differ
+* Revisit Table Maker Dilemma https://perso.ens-lyon.fr/jean-michel.muller/Intro-to-TMD.htm
+* Conversion semantics are not guaranteed to be identical
+* Uninitialized data
+* Compiler differences on different HW architectures and compiler flags
+
+
+TODO
+* Comparisons are tricky https://randomascii.wordpress.com/2012/02/25/comparing-floating-point-numbers-2012-edition/
+* Pitfalls of verifying floats https://arxiv.org/abs/cs/0701192
+
+Table maker dilemma https://perso.ens-lyon.fr/jean-michel.muller/Intro-to-TMD.htm
+
+Some functions need exact representaitons but we can't do that on computers instead we try to predict if after we apply rounding we'd get identical results to the real value
+
+So what we can is for a given function brute force and find the most egregious examples where our predictions are completely off and by how many digits, that way we know then if we have that many digits of precisions or more then our results are exact

@@ -16,3 +16,12 @@ Some ideas
 15. Revive HTA and make it more first class
 16. Closer integration with ncu
 17. Study nsys more
+
+
+## Misc issues from reading github
+
+18. Interesting we have a (broken flop counter in the profiler) https://github.com/pytorch/pytorch/issues/69782 - we should perhaps revive and maintain Horaces flop profiler https://github.com/pytorch/pytorch/issues/69506
+19. Get energy consumption (maybe people dont care as much these days IDK) but its a good proxy for cost https://github.com/pytorch/pytorch/issues/65985
+20. TF32 is incorrect https://github.com/pytorch/pytorch/issues/153901
+21. A common issue https://github.com/pytorch/pytorch/issues/120235 around how the profiler breaks when you load a model
+22. Goals of kineto relative to pytorch profiler arent super clear to me

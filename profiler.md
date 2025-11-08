@@ -5,7 +5,7 @@ Some ideas
 4. Better defualts for wait, warmup, active, this would be BC breaking
 5. Kills torch.utils.benchmark, its number seem off and we should perhaps just tell people to use do_bench in triton
 6. Automatically add syncs for people?? (This seems like a no but worth thinking about)
-7.Show launch latency of each kernel explicitly in each place
+7. Show launch latency of each kernel explicitly in each place
 8. Compiler is useless if we're using torch.compile, so we need to roll things up a bit better
 9. DeepContext seems to show hotspots as well
 10. Espeially for RL, whole model profiling seems crucial, the bottlenecks aren't just PyTorch

@@ -54,3 +54,30 @@ SM120 also had some added support but there are some more restrictions with no c
 
 Probably becomes more importnat since it becames hard to visualize bottlenecks, today most of the instrumentation happens via CUPTI with UIs built on top like nsys or ncu. Libraries like kineto will just wrap cupti (set ranges, register callbacks) and create an exportable perfetto trace
 
+## Application
+
+There is interest in dropless MoE which are MoE that don't drop any tokens so there's not as much stability problems but the workload is more dynamic
+
+But can reformulate MoE computation in terms of block-sparse operations and develop new GPU kernels https://arxiv.org/pdf/2211.15841 (TODO: look into this more deeply the high level  point is that this seems more efficient than padding)
+
+
+## Notes
+
+Why does blackwell have higher overhead? Did anyone get to the bottom of this?
+
+Can always just use cuda graphs as a solution but this seems unsatisfying
+
+As fasr as quantization goes which layers do people typically quantize and what's the lowst dtype people have done, presumably router is more numerically sensitive
+
+With NVL72 just make sure parallelism dimension is less than 72, this machine seems really nice and i should get my hands on one
+
+Within batch overlap is important otherwise gating -> dispatch -> expert compute -> combine is a serial operation. so we can overlap within the same microbatch to get better end to end latency. Big thing is it helps us better hide the all to all latench (and i wonder if there's a profiler that shows this nicely)
+
+The above kind of overlap happens purely with cuda streams and chunked dispatch 
+
+Pipeline parallelism would be an additional kind of hiding where you pipeline across batches
+
+Packed activations: After gating we can choose to pad everything up to max_e n_e where n_e is the number of tokens for expert e - so we can instead choose to pack
+
+Need kernels for EP - need to keep some SMs for comms and others for communication using symmetric memory
+

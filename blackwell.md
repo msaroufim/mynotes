@@ -61,11 +61,18 @@ There is interest in dropless MoE which are MoE that don't drop any tokens so th
 But can reformulate MoE computation in terms of block-sparse operations and develop new GPU kernels https://arxiv.org/pdf/2211.15841 (TODO: look into this more deeply the high level  point is that this seems more efficient than padding)
 
 
-## Notes
+## Overhead
 
-Why does blackwell have higher overhead? Did anyone get to the bottom of this?
+Why does blackwell have higher overhead? Did anyone get to the bottom of this? Can always just use cuda graphs as a solution but this seems unsatisfying
 
-Can always just use cuda graphs as a solution but this seems unsatisfying
+
+## B200 specific regressions
+
+Vector matrix multiplication is slow 
+https://github.com/pytorch/pytorch/issues/161134
+
+
+## Misc
 
 As fasr as quantization goes which layers do people typically quantize and what's the lowst dtype people have done, presumably router is more numerically sensitive
 

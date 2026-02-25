@@ -18,5 +18,29 @@ Not super RL related but really enjoyed  reading this https://x.com/marksaroufim
 
 Maybe we don't need "new tricks" maybe most innovation in the world is about using innovations from related problems or fields https://x.com/marksaroufim/status/2009096176789016600?s=20 wisdom from Ion
 
-TODO: 
+### Pretraining vs RLHF: supervision granularity and credit assignment
+
+In **pretraining**, the training signal is **token-level next-token prediction**: for each position, the model is directly trained against the actual next token in the dataset. The loss is applied at every token position. ([arXiv](https://arxiv.org/pdf/2203.02155))
+
+In **typical RLHF-style post-training**, the common setup is:
+* Take a prompt (x)
+* Sample a full response (y)
+* Feed (x, y) to a reward model
+* Get **one scalar score for the whole response**
+* Update the policy so responses like that become more/less likely
+
+That's the "sequence-level" part: the reward is usually attached to the **entire completion**, not to each token individually. InstructGPT's reward model is framed this way, and later work explicitly describes classical RLHF as learning from **sparse, sentence-level rewards**. ([arXiv](https://arxiv.org/pdf/2203.02155))
+
+Even when the reward is sequence-level, the optimizer still pushes that signal back through the sampled tokens. So the model is updated at the token level internally — but the **supervision source** is much weaker:
+* **Pretraining:** "this exact token was right/wrong here"
+* **RLHF:** "this whole answer got a good/bad score"
+
+RLHF has a **credit assignment problem**: if an answer got a score of 8/10, which tokens deserved credit? Classical RLHF usually spreads that sequence-level signal across the trajectory using policy-gradient machinery, rather than having explicit per-token labels. Token-wise RLHF methods are newer and were proposed partly to fix this mismatch. ([arXiv](https://arxiv.org/abs/2404.18922))
+
+Compact summary:
+* **Pretraining:** dense, token-by-token supervision
+* **Typical RLHF:** sparse, whole-sequence supervision
+* **Newer variants:** try to recover **token-level rewards** for better credit assignment ([arXiv](https://arxiv.org/abs/2404.18922))
+
+TODO:
 * Write myself a simple DPO, PPO and GRPO programs
